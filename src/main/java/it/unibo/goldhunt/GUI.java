@@ -1,6 +1,6 @@
-package main.java.it.unibo.goldhunt;
+package it.unibo.goldhunt;
 
-import main.java.it.unibo.goldhunt.engine.api.Position;
+import it.unibo.goldhunt.engine.api.Position;
 
 import javax.swing.*;
 import java.util.*;

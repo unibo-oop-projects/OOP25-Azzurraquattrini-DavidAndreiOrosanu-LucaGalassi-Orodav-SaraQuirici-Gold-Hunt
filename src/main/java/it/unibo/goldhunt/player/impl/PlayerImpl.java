@@ -1,10 +1,10 @@
-package main.java.it.unibo.goldhunt.player.impl;
+package it.unibo.goldhunt.player.impl;
 //davv
 import java.util.Arrays;
 
-import main.java.it.unibo.goldhunt.engine.api.Position;
-import main.java.it.unibo.goldhunt.player.api.Inventory;
-import main.java.it.unibo.goldhunt.player.api.Player;
+import it.unibo.goldhunt.engine.api.Position;
+import it.unibo.goldhunt.player.api.Inventory;
+import it.unibo.goldhunt.player.api.Player;
 
 public final class PlayerImpl implements Player {
 
