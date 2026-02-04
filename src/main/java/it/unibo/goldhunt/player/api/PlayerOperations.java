@@ -1,7 +1,6 @@
-package main.java.it.unibo.goldhunt.player.api;
+package it.unibo.goldhunt.player.api;
 
-import main.java.it.unibo.goldhunt.engine.api.Position;
-import main.java.it.unibo.goldhunt.items.Item;
+import it.unibo.goldhunt.engine.api.Position;
 
 public interface PlayerOperations extends Player{
 

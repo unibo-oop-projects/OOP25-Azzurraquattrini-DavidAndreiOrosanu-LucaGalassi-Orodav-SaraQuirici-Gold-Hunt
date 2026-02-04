@@ -1,14 +1,14 @@
-package main.java.it.unibo.goldhunt.engine.impl;
+package it.unibo.goldhunt.engine.impl;
 
-import main.java.it.unibo.goldhunt.engine.api.ActionEffect;
-import main.java.it.unibo.goldhunt.engine.api.ActionResult;
-import main.java.it.unibo.goldhunt.engine.api.ActionType;
-import main.java.it.unibo.goldhunt.engine.api.Engine;
-import main.java.it.unibo.goldhunt.engine.api.MovementRules;
-import main.java.it.unibo.goldhunt.engine.api.Position;
-import main.java.it.unibo.goldhunt.engine.api.Status;
-import main.java.it.unibo.goldhunt.engine.api.StopReason;
-import main.java.it.unibo.goldhunt.player.api.Player;
+import it.unibo.goldhunt.engine.api.ActionEffect;
+import it.unibo.goldhunt.engine.api.ActionResult;
+import it.unibo.goldhunt.engine.api.ActionType;
+import it.unibo.goldhunt.engine.api.Engine;
+import it.unibo.goldhunt.engine.api.MovementRules;
+import it.unibo.goldhunt.engine.api.Position;
+import it.unibo.goldhunt.engine.api.Status;
+import it.unibo.goldhunt.engine.api.StopReason;
+import it.unibo.goldhunt.player.api.Player;
 
 public class EngineImpl implements Engine{
 

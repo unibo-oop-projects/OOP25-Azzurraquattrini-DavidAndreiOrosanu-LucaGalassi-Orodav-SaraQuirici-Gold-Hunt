@@ -1,6 +1,4 @@
-package main.java.it.unibo.goldhunt.player.api;
-
-import main.java.it.unibo.goldhunt.items.Item;
+package it.unibo.goldhunt.player.api;
 //davv
 public interface Inventory {
 

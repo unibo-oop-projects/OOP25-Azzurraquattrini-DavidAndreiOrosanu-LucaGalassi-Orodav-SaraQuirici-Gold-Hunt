@@ -1,11 +1,9 @@
-package main.java.it.unibo.goldhunt.player.impl;
+package it.unibo.goldhunt.player.impl;
 //davv
 import java.util.HashMap;
 import java.util.Map;
 
-import main.java.it.unibo.goldhunt.player.api.Inventory;
-import main.java.it.unibo.goldhunt.items.Item;
-
+import it.unibo.goldhunt.player.api.Inventory;
 
 public class InventoryImpl implements Inventory {
 
