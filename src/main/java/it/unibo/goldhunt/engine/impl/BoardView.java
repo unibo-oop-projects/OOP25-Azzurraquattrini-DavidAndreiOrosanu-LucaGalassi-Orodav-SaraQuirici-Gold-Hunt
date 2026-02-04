@@ -2,9 +2,8 @@ package main.java.it.unibo.goldhunt.engine.impl;
 
 import java.util.List;
 
-import it.unibo.goldhunt.board.api.Cell;
-import it.unibo.goldhunt.engine.api.Position;
-import it.unibo.goldhunt.player.api.Player;
+import main.java.it.unibo.goldhunt.engine.api.Position;
+import main.java.it.unibo.goldhunt.player.api.Player;
 
 public interface BoardView {
 

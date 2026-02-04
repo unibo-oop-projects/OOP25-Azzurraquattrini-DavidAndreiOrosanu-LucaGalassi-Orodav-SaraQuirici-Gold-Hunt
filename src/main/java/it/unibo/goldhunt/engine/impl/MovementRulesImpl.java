@@ -5,9 +5,10 @@ import java.util.HashSet;
 import java.util.Queue;
 import java.util.Set;
 
-import it.unibo.goldhunt.engine.api.MovementRules;
-import it.unibo.goldhunt.engine.api.Position;
-import it.unibo.goldhunt.player.api.Player;
+import main.java.it.unibo.goldhunt.engine.api.MovementRules;
+import main.java.it.unibo.goldhunt.engine.api.Position;
+import main.java.it.unibo.goldhunt.player.api.Player;
+
 
 public class MovementRulesImpl implements MovementRules {
 
