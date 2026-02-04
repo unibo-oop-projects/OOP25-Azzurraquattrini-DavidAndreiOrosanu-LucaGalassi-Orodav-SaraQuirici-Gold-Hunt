@@ -1,0 +1,87 @@
+package main.java.it.unibo.goldhunt.engine.impl;
+
+import main.java.it.unibo.goldhunt.engine.api.ActionEffect;
+import main.java.it.unibo.goldhunt.engine.api.ActionResult;
+import main.java.it.unibo.goldhunt.engine.api.ActionType;
+import main.java.it.unibo.goldhunt.engine.api.Engine;
+import main.java.it.unibo.goldhunt.engine.api.MovementRules;
+import main.java.it.unibo.goldhunt.engine.api.Position;
+import main.java.it.unibo.goldhunt.engine.api.Status;
+import main.java.it.unibo.goldhunt.engine.api.StopReason;
+import main.java.it.unibo.goldhunt.player.api.Player;
+
+public class EngineImpl implements Engine{
+
+    private final Player player;
+    private final Status status;
+    private final BoardView board;
+    private final MovementRules rules;
+
+    public EngineImpl(Player player, Status status, BoardView board, MovementRules rules) {
+        this.player = player;
+        this.status = status;
+        this.board = board;
+        this.rules = rules;
+    }
+    @Override
+    public Player player() {
+        return this.player;
+    }
+
+    @Override
+    public Status status() {
+        return this.status;
+    }
+
+    @Override
+    public ActionResult reveal(Position p) {
+        /*if (p == null) {
+            throw new IllegalArgumentException("position can't be null");
+        }
+        if (!this.board.isPositionValid(p)) {
+            return new ActionResult(
+                ActionType.REVEAL,
+                StopReason.NONE,
+                this.status.levelState(),
+                ActionEffect.INVALID);
+        }
+        if (this.status.levelState() != LevelState.PLAYING) {
+            return new ActionResult(
+                ActionType.REVEAL,
+                StopReason.NONE,
+                this.status.levelState(),
+                ActionEffect.BLOCKED);
+        }
+        final RevealResult revealResult = this.board.reveal(p, this.player);    //reveal verrà da futuro import da Azzurra
+        return new ActionResult(
+                ActionType.REVEAL,
+                StopReason.NONE,
+                revealResult.newLevelState(),
+                revealResult.effect()); */
+        throw new IllegalArgumentException();   //inserita per compilazione funzionante, da rimuovere
+    }
+
+    @Override
+    public ActionResult toggleFlag(Position p) {
+        if (p == null) {
+            throw new IllegalArgumentException("position can't be null");
+        }
+        if (!this.board.isPositionValid(p)) {
+            return new ActionResult(ActionType.FLAG, StopReason.NONE, this.status.levelState(), ActionEffect.INVALID);
+        }
+        final boolean changed = this.board.toggleFlag(p);
+        return new ActionResult(
+            ActionType.FLAG,
+            StopReason.NONE,
+            this.status.levelState(),
+            changed ? ActionEffect.APPLIED : ActionEffect.REMOVED
+        );
+    }
+
+    @Override
+    public ActionResult move(Position target) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'move'");
+    }
+    
+}
