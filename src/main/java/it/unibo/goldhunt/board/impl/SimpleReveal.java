@@ -1,3 +1,5 @@
+// AZZU
+
 package it.unibo.goldhunt.board.impl;
 
 import java.util.Objects;
