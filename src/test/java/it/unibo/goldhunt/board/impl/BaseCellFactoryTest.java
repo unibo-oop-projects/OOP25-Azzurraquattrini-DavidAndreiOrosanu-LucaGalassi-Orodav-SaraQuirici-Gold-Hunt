@@ -12,11 +12,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.goldhunt.board.api.Cell;
+import it.unibo.goldhunt.board.api.CellFactory;
 import it.unibo.goldhunt.items.api.CellContent;
 
 public class BaseCellFactoryTest {
 
-    private BaseCellFactory factory;
+    private CellFactory factory;
 
     @BeforeEach
     void init() {
