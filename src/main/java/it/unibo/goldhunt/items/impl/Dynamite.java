@@ -1,5 +1,7 @@
 package it.unibo.goldhunt.items.impl;
 
+import java.util.List;
+
 import it.unibo.goldhunt.board.api.Cell;
 
 //luca
@@ -16,11 +18,21 @@ public class Dynamite extends Item{
 
     @Override
     public boolean applyEffect() {
-        var cells = board.getAdjacentCells(player.position());
-        cells.stream()
+
+        List<Cell> adjacent = board.getAdjacentCells(player.position());
+        if(adjacent == null || adjacent.isEmpty()){
+            throw new IllegalStateException("no cells nearby");
+        }
+
+        adjacent.stream()
         .filter(Cell::hasContent)
-        .map(Cell::getContent)
-        .forEach();
+        .forEach(cell -> cell.getContent()
+        .filter(i-> i instanceof Trap)
+        .ifPresent(c->cell.removeContent()));
+
+        adjacent.forEach(Cell::reveal);
+
+        return true;
         }
         
 
