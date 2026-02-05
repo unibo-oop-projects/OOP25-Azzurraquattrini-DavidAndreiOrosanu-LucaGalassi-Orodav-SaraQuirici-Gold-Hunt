@@ -3,6 +3,8 @@
 package it.unibo.goldhunt.board.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
@@ -31,7 +33,7 @@ public final class SquareBoardTest {
 
     /**
      * Tests that SquareBoard.getBoardCells() returns 
-     * a list with all of the board's cells
+     * a list with all of the board's cells.
      */
     @Test
     void testGetBoardCells() {
@@ -41,6 +43,20 @@ public final class SquareBoardTest {
             cells[0][0], cells[0][1], cells[0][2],
             cells[1][0], cells[1][1], cells[1][2],
             cells[2][0], cells[2][1], cells[2][2] )));
+    }
+
+    /**
+     * Tests that getCell() return the right cell and
+     * throws the right exceptions.
+     */
+    @Test
+    void testGetCell() {
+        assertSame(cells[0][0], board.getCell(new Position(0, 0)));
+        assertSame(cells[1][1], board.getCell(new Position(1, 1)));
+        assertSame(cells[2][2], board.getCell(new Position(2, 2)));
+        assertThrows(NullPointerException.class, () -> board.getCell(null));
+        assertThrows(IndexOutOfBoundsException.class, () -> board.getCell(new Position(-1, 0)));
+        assertThrows(IndexOutOfBoundsException.class, () -> board.getCell(new Position(0, 3)));
     }
 
     private void fillBoard() {
