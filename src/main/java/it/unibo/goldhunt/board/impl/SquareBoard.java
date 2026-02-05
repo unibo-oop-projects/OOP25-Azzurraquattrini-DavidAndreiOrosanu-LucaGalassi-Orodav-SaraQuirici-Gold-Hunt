@@ -10,6 +10,9 @@ import it.unibo.goldhunt.board.api.Board;
 import it.unibo.goldhunt.board.api.Cell;
 import it.unibo.goldhunt.engine.api.Position;
 
+/**
+ * This class implements Board and it models a square board.
+ */
 public class SquareBoard implements Board {
 
     private static final String CELL_NOT_IN_BOARD_EXCEPTION = "This cell is not in the board: ";
@@ -21,23 +24,41 @@ public class SquareBoard implements Board {
     private final Cell[][] board;
     private final Map<Cell, Position> cellPositions;
 
+    /**
+     * BaseBoard's constructor.
+     * This constructor sets the board's size.
+     * 
+     * @param boardSize
+     */
     protected SquareBoard(final int boardSize) {
         this.board = new Cell[boardSize][boardSize];
         this.cellPositions = new HashMap<>();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public List<Cell> getBoardCells() {
         return Arrays.stream(board)
             .flatMap(Arrays::stream)
             .toList();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Cell getCell(final Position p) {
         checkValidPosition(p);
 
         return this.board[p.x()][p.y()];
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Position getCellPosition(final Cell cell) {
         Objects.requireNonNull(cell, NULL_CELL_EXCEPTION);
         checkValidCell(cell);
@@ -45,22 +66,38 @@ public class SquareBoard implements Board {
         return cellPositions.get(cell);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public int getBoardSize() {
         return this.board.length;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public List<Cell> getRow(final int index) {
         checkValidIndex(index);
 
         return Arrays.stream(this.board[index]).toList();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public List<Cell> getColumn(final int index) {
         checkValidIndex(index);
 
         return Arrays.stream(board).map(row -> row[index]).toList();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public List<Cell> getAdjacentCells(final Position p) {
         checkValidPosition(p);
         
@@ -69,6 +106,10 @@ public class SquareBoard implements Board {
             .toList();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void setCell(final Cell cell, final Position p) {
         Objects.requireNonNull(cell, NULL_CELL_EXCEPTION);
         checkValidPosition(p);
@@ -77,6 +118,10 @@ public class SquareBoard implements Board {
         this.cellPositions.put(cell, p);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public boolean isPositionValid(final Position p) {
         Objects.requireNonNull(p, NULL_POSITION_EXCEPTION);
         
@@ -86,6 +131,10 @@ public class SquareBoard implements Board {
                 && y >= 0 && y < board.length;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public boolean isAdjacent(final Position p1, final Position p2) {
         checkValidPosition(p1);
         checkValidPosition(p2);
