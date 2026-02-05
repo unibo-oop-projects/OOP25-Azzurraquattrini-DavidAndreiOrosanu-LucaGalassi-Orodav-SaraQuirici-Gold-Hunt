@@ -12,13 +12,6 @@ import it.unibo.goldhunt.engine.api.Position;
 public interface Board {
 
     /**
-     * Returns the board.
-     * 
-     * @return the board
-     */
-    Cell[][] getBoard();
-
-    /**
      * Returns a {@link List} containing the board's cells.
      * 
      * @return a {@link List} of {@link Cell} with all the board's cells
