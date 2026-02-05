@@ -61,7 +61,7 @@ public class BaseCellFactoryTest {
     private static final class TempCellContent implements CellContent {
 
         @Override
-        public void applyEffect() {}
+        public boolean applyEffect() { return true; }
 
         @Override
         public String shortString() { return "For testing only"; }
