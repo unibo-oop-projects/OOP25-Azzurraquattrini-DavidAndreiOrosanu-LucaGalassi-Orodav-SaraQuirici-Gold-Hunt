@@ -8,7 +8,7 @@ import it.unibo.goldhunt.board.api.Board;
 import it.unibo.goldhunt.board.api.RevealStrategy;
 import it.unibo.goldhunt.engine.api.Position;
 
-public class SimpleReveal implements RevealStrategy {
+public final class SimpleReveal implements RevealStrategy {
 
     /**
      * {@inheritDoc}

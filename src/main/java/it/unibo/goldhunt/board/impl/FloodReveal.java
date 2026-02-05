@@ -9,7 +9,7 @@ import it.unibo.goldhunt.board.api.Cell;
 import it.unibo.goldhunt.board.api.RevealStrategy;
 import it.unibo.goldhunt.engine.api.Position;
 
-public class FloodReveal implements RevealStrategy {
+public final class FloodReveal implements RevealStrategy {
 
     private static final int NO_ADJACENT_TRAPS = 0;
 
