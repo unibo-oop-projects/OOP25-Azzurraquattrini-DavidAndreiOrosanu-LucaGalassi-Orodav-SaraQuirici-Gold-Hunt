@@ -25,7 +25,7 @@ public final class BaseCellFactoryTest {
     }
 
     /**
-     * Tests the creation of an empty cell
+     * Tests the creation of an empty cell.
      */
     @Test
     void testCreateCellWithNoParameters() {
@@ -38,7 +38,7 @@ public final class BaseCellFactoryTest {
     }
 
     /**
-     * Test the creation of a cell with content
+     * Test the creation of a cell with content.
      */
     @Test
     void testCreateCellWithParameters() {

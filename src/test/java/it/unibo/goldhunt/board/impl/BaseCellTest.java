@@ -90,7 +90,7 @@ public final class BaseCellTest {
     }
 
     /**
-     * Tests that the number of adjacent cells is between 0 and 8 inclusive
+     * Tests that the number of adjacent cells is between 0 and 8 inclusive.
      */
     @Test
     void testSetAdjacentTraps() {
