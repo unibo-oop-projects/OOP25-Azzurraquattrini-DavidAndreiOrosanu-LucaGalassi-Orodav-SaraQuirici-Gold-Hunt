@@ -51,4 +51,35 @@ public class BaseCellTest {
         assertTrue(cell.isFlagged());
     }
 
+    /**
+     * Tests that a non-revealed and unflagged cell can be flagged.
+     */
+    @Test
+    void testToggleFlagWhenNotFlagged() {
+        cell.toggleFlag();
+        assertFalse(cell.isRevealed());
+        assertTrue(cell.isFlagged());
+    }
+
+    /**
+     * Tests that a flagged cell can be unflagged.
+     */
+    @Test
+    void testToggleFlagWhenFlagged() {
+        cell.toggleFlag();
+        cell.toggleFlag();
+        assertFalse(cell.isRevealed());
+        assertFalse(cell.isFlagged());
+    }
+
+    /**
+     * Tests that a revealed cell cannot be flagged.
+     */
+    @Test
+    void testToggleFlagWhenRevealed() {
+        cell.reveal();
+        cell.toggleFlag();
+        assertFalse(cell.isFlagged());
+    }
+
 }
