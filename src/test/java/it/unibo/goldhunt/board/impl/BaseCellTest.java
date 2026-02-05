@@ -1,6 +1,8 @@
 package it.unibo.goldhunt.board.impl;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -80,6 +82,21 @@ public class BaseCellTest {
         cell.reveal();
         cell.toggleFlag();
         assertFalse(cell.isFlagged());
+    }
+
+    /**
+     * Tests that the number of adjacent cells is between 0 and 8 inclusive
+     */
+    @Test
+    void testSetAdjacentTraps() {
+        cell.setAdjacentTraps(0);
+        assertEquals(0, cell.getAdjacentTraps());
+        cell.setAdjacentTraps(1);
+        assertEquals(1, cell.getAdjacentTraps());
+        cell.setAdjacentTraps(8);
+        assertEquals(8, cell.getAdjacentTraps());
+        assertThrows(IllegalArgumentException.class, () -> cell.setAdjacentTraps(-1));
+        assertThrows(IllegalArgumentException.class, () -> cell.setAdjacentTraps(9));
     }
 
 }
