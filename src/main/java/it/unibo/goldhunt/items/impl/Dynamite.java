@@ -3,9 +3,10 @@ package it.unibo.goldhunt.items.impl;
 import java.util.List;
 
 import it.unibo.goldhunt.board.api.Cell;
+import it.unibo.goldhunt.items.api.ClearCells;
 
 //luca
-public class Dynamite extends Item{
+public class Dynamite extends Item implements ClearCells{
 
     private final static String ITEM_NAME = "Dynamite";
     
@@ -23,15 +24,7 @@ public class Dynamite extends Item{
         if(adjacent == null || adjacent.isEmpty()){
             throw new IllegalStateException("no cells nearby");
         }
-
-        adjacent.stream()
-        .filter(Cell::hasContent)
-        .forEach(cell -> cell.getContent()
-        .filter(i-> i instanceof Trap)
-        .ifPresent(c->cell.removeContent()));
-
-        adjacent.forEach(Cell::reveal);
-
+        disarm(adjacent);
         return true;
         }
         

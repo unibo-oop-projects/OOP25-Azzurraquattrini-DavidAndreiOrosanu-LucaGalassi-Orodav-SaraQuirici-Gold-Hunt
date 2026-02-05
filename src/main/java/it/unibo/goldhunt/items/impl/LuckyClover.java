@@ -8,11 +8,6 @@ public class LuckyClover extends Item{
     private boolean usage = false;
 
     @Override
-    public boolean isConsumable() {
-        return consumable;
-    }
-
-    @Override
     public String getName() {
         return ITEM_NAME;
     }
@@ -20,11 +15,6 @@ public class LuckyClover extends Item{
     @Override
     public boolean applyEffect() {
         player.setMultiplier(2);
-    }
-
-    @Override
-    public boolean canUse() {
-        return usage;
     }
 
     @Override
