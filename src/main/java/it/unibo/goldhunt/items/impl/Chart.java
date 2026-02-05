@@ -1,6 +1,5 @@
 package it.unibo.goldhunt.items.impl;
 
-import it.unibo.goldhunt.items.api.Item;
 //luca
 public class Chart extends Item{
 
@@ -18,7 +17,7 @@ public class Chart extends Item{
     }
 
     @Override
-    public void applyEffect() {
+    public boolean applyEffect() {
         getAdjacentPosition(player.getCell()).getAdjacentPosition();
         stream.pos.cell.contains.trap.reveal;
     }

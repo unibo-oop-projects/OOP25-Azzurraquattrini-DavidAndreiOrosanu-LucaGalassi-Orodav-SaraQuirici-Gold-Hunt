@@ -1,15 +1,24 @@
 package it.unibo.goldhunt.items.impl;
 //luca
-import it.unibo.goldhunt.player.impl.InventoryImpl;
+public class GoldX3 extends Item {
 
-public class GoldX3 extends Gold{
-    
-    InventoryImpl inventory = new InventoryImpl();
+    public static final String ITEM_NAME = "Gold x3";
 
     @Override
-    public void applyEffect(){
+    public boolean applyEffect(){
 
-        inventory.add(gold, 3);
+        inventory.add(gold, ADDED_GOLDX3);
+        return true;
+    }
+
+    @Override
+    public String shortString(){
+        return "X";
+    }
+
+    @Override
+    public String getName() {
+        return ITEM_NAME;
     }
 
 }

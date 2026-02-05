@@ -1,19 +1,9 @@
 package it.unibo.goldhunt.items.impl;
 
-import it.unibo.goldhunt.items.api.Item;
 //luca
 public class Gold extends Item{
 
-    private boolean consumable = true;
     public static final String ITEM_NAME = "Gold";
-    private boolean usage = false;
-
-    Gold gold = new Gold();
-
-    @Override
-    public boolean isConsumable() {
-        return consumable;
-    }
 
     @Override
     public String getName() {
@@ -21,13 +11,9 @@ public class Gold extends Item{
     }
 
     @Override
-    public boolean canUse() {
-        return usage;
-    }
-
-    @Override
-    public void applyEffect() {
-        inventory.add(gold, 1);
+    public boolean applyEffect() {
+        inventory.add(gold, ADDED_GOLD);
+        return true;
     }
 
     @Override

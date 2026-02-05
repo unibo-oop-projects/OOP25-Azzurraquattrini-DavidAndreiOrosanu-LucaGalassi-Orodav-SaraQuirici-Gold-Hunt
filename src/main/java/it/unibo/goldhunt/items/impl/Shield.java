@@ -1,21 +1,8 @@
 package it.unibo.goldhunt.items.impl;
 //luca
-import java.util.HashMap;
-
-import it.unibo.goldhunt.items.api.Item;
-import it.unibo.goldhunt.items.api.Trap;
-
 public class Shield extends Item{
 
-    private final static boolean consumable = true;
-    private final static String ITEM_NAME = "Sheild";
-    private Trap trap;
-
-
-    @Override
-    public boolean isConsumable() {
-        return consumable;
-    }
+    private final static String ITEM_NAME = "Shield";
 
     @Override
     public String getName() {
@@ -23,16 +10,12 @@ public class Shield extends Item{
     }
 
     @Override
-    public void applyEffect() {
-        if(trap.applyEffect()){
-            player.lifeCounter++;
-
+    public boolean applyEffect() {
+        if(trap != null && trap.applyEffect()){
+            playerop.addLives(PLUS_LIFE);
+            return true;
         }
-    }
-
-    @Override
-    public boolean canUse() {
-        return inGame;
+        return false;
     }
 
     @Override
