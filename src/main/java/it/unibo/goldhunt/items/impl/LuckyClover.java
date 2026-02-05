@@ -1,5 +1,4 @@
 package it.unibo.goldhunt.items.impl;
-import it.unibo.goldhunt.items.api.Item;
 
 public class LuckyClover extends Item{
 
@@ -19,7 +18,7 @@ public class LuckyClover extends Item{
     }
 
     @Override
-    public void applyEffect() {
+    public boolean applyEffect() {
         player.setMultiplier(2);
     }
 
