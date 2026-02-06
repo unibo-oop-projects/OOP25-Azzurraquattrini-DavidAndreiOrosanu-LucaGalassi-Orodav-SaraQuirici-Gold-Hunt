@@ -100,7 +100,7 @@ public interface Board {
      * @param p2 the second position
      * @return true if the positions are adjacent, false otherwise
      * @throws NullPointerException if {@code p1} or {@code p2} are {@code null}
-     * @throws IndexOutOfBoundException if at least one of the positions
+     * @throws IndexOutOfBoundsException if at least one of the positions
      * is out of the board's bounds
      */
     boolean isAdjacent(Position p1, Position p2);

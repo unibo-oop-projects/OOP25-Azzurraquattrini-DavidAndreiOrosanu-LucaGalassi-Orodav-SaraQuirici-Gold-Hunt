@@ -17,14 +17,14 @@ public interface Cell {
     void reveal();
 
     /**
-     * Toggles the cell's flag status if it is not revealed.
+     * Checks if the cell is revealed.
+     * 
+     * @return true if the cell is revealed, false otherwise
      */
     boolean isRevealed();
     
     /**
-     * Checks if the cell is revealed.
-     * 
-     * @return true if the cell is revealed, false otherwise
+     * Toggles the cell's flag status if it is not revealed.
      */
     void toggleFlag();
     
