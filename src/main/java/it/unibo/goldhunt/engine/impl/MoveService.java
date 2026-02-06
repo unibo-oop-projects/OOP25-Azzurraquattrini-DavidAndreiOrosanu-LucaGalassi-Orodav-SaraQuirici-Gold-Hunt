@@ -53,26 +53,27 @@ public class MoveService {
         if (from.equals(newPos)) {
             return ActionResultsFactory.move(
                 this.status.get(),
-                StopReason.REACHED_CELL,
-                ActionEffect.REMOVED
+                StopReason.ALREADY_THERE,
+                ActionEffect.NONE
             );
         }
         return moveByOne(newPos);
     }
 
     private Optional<ActionResult> checkMovePreconditions(final Position newPos) {
+        final Status actualStatus = this.status.get();
         if (!this.board.isPositionValid(newPos)) {
             return Optional.of(
                 ActionResultsFactory.move(
-                    this.status.get(), 
+                    actualStatus, 
                     StopReason.NONE, 
                     ActionEffect.INVALID
             ));
         }
-        if (this.status.get().levelState() != LevelState.PLAYING) {
+        if (actualStatus.levelState() != LevelState.PLAYING) {
             return Optional.of(
                 ActionResultsFactory.move(
-                    this.status.get(), 
+                    actualStatus, 
                     StopReason.NONE, 
                     ActionEffect.BLOCKED    
             ));
@@ -110,14 +111,14 @@ public class MoveService {
 
     private Optional<ActionResult> applyStep(
         final PlayerOperations currentPlayer,
-        final Position nexPosition
+        final Position nextPosition
     ) {
-        if (!this.rules.canEnter(currentPlayer.position(), nexPosition, currentPlayer)) {
+        if (!this.rules.canEnter(currentPlayer.position(), nextPosition, currentPlayer)) {
             return Optional.of(blocked());
         }
-        this.setPlayer.apply(currentPlayer.moveTo(nexPosition));
+        this.setPlayer.apply(currentPlayer.moveTo(nextPosition));
         final PlayerOperations updatedPlayer = this.player.get();
-        if (this.rules.mustStopOn(nexPosition, updatedPlayer)) {
+        if (this.rules.mustStopOn(nextPosition, updatedPlayer)) {
             return Optional.of(warningStop());
         }
         return Optional.empty();

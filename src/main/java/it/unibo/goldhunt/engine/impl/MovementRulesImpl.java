@@ -141,7 +141,7 @@ public final class MovementRulesImpl implements MovementRules {
             return Optional.empty();
         }
         final List<Position> path = optionalPath.get();
-        return path.isEmpty() ? Optional.of(from) : Optional.of(path.get(0));
+        return path.isEmpty() ? Optional.empty() : Optional.of(path.get(0));
     }
 
     
