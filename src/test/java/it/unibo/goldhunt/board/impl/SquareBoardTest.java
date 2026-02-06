@@ -122,6 +122,55 @@ public final class SquareBoardTest {
         assertThrows(IndexOutOfBoundsException.class, () -> board.setCell(factory.createCell(), new Position(0, 3)));
     }
 
+    /**
+     * Tests that a cell in the corner of the board
+     * has 3 adjacent cells.
+     */
+    @Test
+    void testGetAdjacentCellsOnCornerIsThree() {
+        List<Cell> list = board.getAdjacentCells(new Position(0, 0));
+        assertEquals(3, list.size());
+        assertTrue(list.containsAll(List.of(cells[0][1], cells[1][0], cells[1][1])));
+    }
+
+    /**
+     * Tests that a cell on the edge of the board
+     * has 5 adjacent cells.
+     */
+    @Test
+    void testGetAdjacentCellsOnEdgeIsFive() {
+        List<Cell> list = board.getAdjacentCells(new Position(1,0));
+        assertEquals(5, list.size());
+        assertTrue(list.containsAll(List.of(
+            cells[0][0], cells[0][1], cells[1][1],
+            cells[2][0], cells[2][1])));
+    }
+
+    /**
+     * Tests that a cell in the middle of the board
+     * has 8 adjacent cells.
+     */
+    @Test 
+    void testGetAdjacentCellsInCenterIsEight() {
+        List<Cell> list = board.getAdjacentCells(new Position(1,1));
+        assertEquals(8, list.size());
+        assertTrue(list.containsAll(List.of(
+            cells[0][0], cells[0][1], cells[0][2],
+            cells[1][0], cells[1][2],
+            cells[2][0], cells[2][1], cells[2][2])));
+    }
+
+    /**
+     * Tests that getAdjacentCells() throws
+     * NullPointerException and IndexOutOfBoundsException correctly.
+     */
+    @Test
+    void testGetAdjacentCellsThrowsRightExceptions() {
+        assertThrows(NullPointerException.class, () -> board.getAdjacentCells(null));
+        assertThrows(IndexOutOfBoundsException.class, () -> board.getAdjacentCells(new Position(-1, 0)));
+        assertThrows(IndexOutOfBoundsException.class, () -> board.getAdjacentCells(new Position(0, 3)));
+    }
+
 
     private void fillBoard() {
         for (int i = 0; i < 3; i++) {
