@@ -179,6 +179,24 @@ public final class SquareBoardTest {
         assertEquals(3, board.getBoardSize());
     }
 
+    /**
+     * Tests that getRow() returns the right board row.
+     */
+    @Test
+    void testGetRowReturnsRightRow() {
+        List<Cell> row = board.getRow(1);
+        assertEquals(3, row.size());
+        assertTrue(row.containsAll(List.of(cells[1][0], cells[1][1], cells[1][2])));
+    }
+
+    /**
+     * Tests that getRow() throws IndexOutOfBoundsException correctly.
+     */
+    @Test
+    void testGetRowThrowsIndexOutOfBoundsException() {
+        assertThrows(IndexOutOfBoundsException.class, () -> board.getRow(-1));
+        assertThrows(IndexOutOfBoundsException.class, () -> board.getRow(3));
+    }
 
     private void fillBoard() {
         for (int i = 0; i < 3; i++) {
