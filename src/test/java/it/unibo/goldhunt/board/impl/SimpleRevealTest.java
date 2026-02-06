@@ -11,20 +11,17 @@ import org.junit.jupiter.api.Test;
 
 import it.unibo.goldhunt.board.api.Board;
 import it.unibo.goldhunt.board.api.Cell;
-import it.unibo.goldhunt.board.api.CellFactory;
 import it.unibo.goldhunt.board.api.RevealStrategy;
 import it.unibo.goldhunt.engine.api.Position;
 
 public final class SimpleRevealTest {
 
     private Board board;
-    private CellFactory factory;
     private RevealStrategy strategy;
 
     @BeforeEach
     void init() {
         this.board = SquareBoard.create(3);
-        this.factory = new BaseCellFactory();
         this.strategy = new SimpleReveal();
     }
 
