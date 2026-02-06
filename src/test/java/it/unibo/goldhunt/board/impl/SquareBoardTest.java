@@ -198,6 +198,25 @@ public final class SquareBoardTest {
         assertThrows(IndexOutOfBoundsException.class, () -> board.getRow(3));
     }
 
+    /**
+     * Tests that getColumn() returns the right board column.
+     */
+    @Test
+    void testGetColumnReturnsRightColumn() {
+        List<Cell> col = board.getColumn(1);
+        assertEquals(3, col.size());
+        assertTrue(col.containsAll(List.of(cells[0][1], cells[1][1], cells[2][1])));
+    }
+
+    /**
+     * Tests that getColumn() throws IndexOutOfBoundsException correctly.
+     */
+    @Test
+    void testGetColumnThrowsIndexOutOfBoundsException() {
+        assertThrows(IndexOutOfBoundsException.class, () -> board.getColumn(-1));
+        assertThrows(IndexOutOfBoundsException.class, () -> board.getColumn(3));
+    }
+
     private void fillBoard() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
