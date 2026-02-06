@@ -1,5 +1,7 @@
 package it.unibo.goldhunt.engine.impl;
 
+import it.unibo.goldhunt.board.api.Board;
+import it.unibo.goldhunt.board.api.RevealStrategy;
 import it.unibo.goldhunt.engine.api.ActionEffect;
 import it.unibo.goldhunt.engine.api.ActionResult;
 import it.unibo.goldhunt.engine.api.ActionType;
@@ -17,8 +19,11 @@ public class EngineImpl implements Engine{
 
     private PlayerOperations player;
     private Status status;
-    private final BoardFittizia board;
+    private final Board board;
     private final MovementRules rules;
+    private final RevealStrategy revealStrategy;
+    private final Position Start;
+    private final Position exit;
 
     public EngineImpl(
         final PlayerOperations player,
