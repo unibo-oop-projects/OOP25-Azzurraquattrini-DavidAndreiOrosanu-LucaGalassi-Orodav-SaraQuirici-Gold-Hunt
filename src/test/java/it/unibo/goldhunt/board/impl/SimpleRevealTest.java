@@ -11,18 +11,22 @@ import org.junit.jupiter.api.Test;
 
 import it.unibo.goldhunt.board.api.Board;
 import it.unibo.goldhunt.board.api.Cell;
+import it.unibo.goldhunt.board.api.CellFactory;
 import it.unibo.goldhunt.board.api.RevealStrategy;
 import it.unibo.goldhunt.engine.api.Position;
 
 public final class SimpleRevealTest {
 
     private Board board;
+    private CellFactory factory;
     private RevealStrategy strategy;
 
     @BeforeEach
     void init() {
         this.board = SquareBoard.create(3);
+        this.factory = new BaseCellFactory();
         this.strategy = new SimpleReveal();
+        fillBoard();
     }
 
     /**
@@ -54,6 +58,15 @@ public final class SimpleRevealTest {
     void testRevealThrowsIndexOutOfBoundsException() {
         assertThrows(IndexOutOfBoundsException.class, () -> strategy.reveal(board, new Position(-1, 0)));
         assertThrows(IndexOutOfBoundsException.class, () -> strategy.reveal(board, new Position(0, 3)));
+    }
+
+    private void fillBoard() {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                final Cell c = factory.createCell();
+                this.board.setCell(c, new Position(i, j));
+            }
+        }
     }
 
 }
