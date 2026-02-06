@@ -238,6 +238,44 @@ public final class SquareBoardTest {
         assertThrows(NullPointerException.class, () -> board.isPositionValid(null));
     }
 
+    /**
+     * Tests that isAdjacent() returns the right results.
+     */
+    @Test
+    void testIsAdjacentReturnsRightResults() {
+        assertTrue(board.isAdjacent(new Position(0, 0), new Position(0, 1)));
+        assertTrue(board.isAdjacent(new Position(0, 0), new Position(1, 0)));
+        assertTrue(board.isAdjacent(new Position(0, 0), new Position(1, 1)));
+        assertFalse(board.isAdjacent(new Position(2, 0), new Position(2, 2)));
+        assertFalse(board.isAdjacent(new Position(0, 1), new Position(2, 1)));
+        assertFalse(board.isAdjacent(new Position(0, 2), new Position(2, 0)));
+    }
+
+    /**
+     * Tests that isAdjacent() throws NullPointerException correctly.
+     */
+    @Test
+    void testIsAdjacentThrowsNullPointerException() {
+        final Position p1 = new Position(0,0);
+        final Position p2 = new Position(1,1);
+        assertThrows(NullPointerException.class, () -> board.isAdjacent(null, p2));
+        assertThrows(NullPointerException.class, () -> board.isAdjacent(p1, null));
+    }
+
+    /**
+     * Tests that isAdjacent() throws IndexOutOfBoundsException correctly.
+     */
+    @Test
+    void testIsAdjacentThrowsIndexOutOfBoundsException() {
+        final Position negativeP = new Position(-1, 0);
+        final Position greaterP = new Position(0, 3);
+        final Position correctP = new Position(0, 0);
+        assertThrows(IndexOutOfBoundsException.class, () -> board.isAdjacent(negativeP, correctP));
+        assertThrows(IndexOutOfBoundsException.class, () -> board.isAdjacent(greaterP, correctP));
+        assertThrows(IndexOutOfBoundsException.class, () -> board.isAdjacent(correctP, negativeP));
+        assertThrows(IndexOutOfBoundsException.class, () -> board.isAdjacent(correctP, greaterP));
+    }
+
     private void fillBoard() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
