@@ -86,6 +86,43 @@ public final class SquareBoardTest {
         assertThrows(IllegalArgumentException.class, () -> board.getCellPosition(factory.createCell()));
     }
 
+    /**
+     * Tests that setCell() sets the right cells.
+     */
+    @Test
+    void testSetCellSetsRightCell() {
+        final Cell cell1 = factory.createCell();
+        final Position p1 = new Position(0,0);
+        board.setCell(cell1, p1);
+        assertSame(cell1, board.getCell(p1));
+        assertEquals(p1, board.getCellPosition(cell1));
+
+        final Cell cell2 = factory.createCell();
+        final Position p2 = new Position(1,1);
+        board.setCell(cell2, p2);
+        assertSame(cell2, board.getCell(p2));
+        assertEquals(p2, board.getCellPosition(cell2));
+
+        final Cell cell3 = factory.createCell();
+        final Position p3 = new Position(2,2);
+        board.setCell(cell3, p3);
+        assertSame(cell3, board.getCell(p3));
+        assertEquals(p3, board.getCellPosition(cell3));
+    }
+
+    /**
+     * Tests that setCell() throws NullPointerException
+     * and IndexOutOfBoundsException correctly.
+     */
+    @Test
+    void testSetCellThrowsRightExceptions() {
+        assertThrows(NullPointerException.class, () -> board.setCell(null, new Position(0,0)));
+        assertThrows(NullPointerException.class, () -> board.setCell(factory.createCell(), null));
+        assertThrows(IndexOutOfBoundsException.class, () -> board.setCell(factory.createCell(), new Position(-1, 0)));
+        assertThrows(IndexOutOfBoundsException.class, () -> board.setCell(factory.createCell(), new Position(0, 3)));
+    }
+
+
     private void fillBoard() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
