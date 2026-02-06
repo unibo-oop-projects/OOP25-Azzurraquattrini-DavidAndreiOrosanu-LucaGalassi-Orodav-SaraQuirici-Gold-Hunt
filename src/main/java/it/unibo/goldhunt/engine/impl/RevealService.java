@@ -18,7 +18,7 @@ public class RevealService {
     private final Board board;
     private final RevealStrategy revealStrategy;
     private final Supplier<Status> status;
-    private final Supplier<PlayerOperations> player;
+    //private final Supplier<PlayerOperations> player;
 
     RevealService(
         final Board board,
@@ -32,7 +32,7 @@ public class RevealService {
         this.board = board;
         this.revealStrategy = revealStrategy;
         this.status = status;
-        this.player = player;
+        //this.player = player;
     }
 
     ActionResult reveal(final Position p) {

@@ -14,8 +14,8 @@ public class EngineImpl implements Engine{
 
     private PlayerOperations player;
     private Status status;
-    private final Position start;
-    private final Position exit;
+    //private final Position start;
+    //private final Position exit;
     private final MoveService moveService;
     private final RevealService revealService;
 
@@ -35,8 +35,8 @@ public class EngineImpl implements Engine{
         }
         this.player = player;
         this.status = status;
-        this.start = start;
-        this.exit = exit;
+        //this.start = start;
+        //this.exit = exit;
         this.moveService = new MoveService(
             board, 
             rules, 
