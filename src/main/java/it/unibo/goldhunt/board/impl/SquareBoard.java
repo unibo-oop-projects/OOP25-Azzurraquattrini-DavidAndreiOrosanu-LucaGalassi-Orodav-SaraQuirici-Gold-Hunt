@@ -171,9 +171,9 @@ public final class SquareBoard implements Board {
                 final Cell c = board[i][j];
 
                 if (c.isFlagged()) {
-                    sb.append("F "); 
+                    sb.append("F").append(" "); 
                 } else if (!c.isRevealed()) {
-                    sb.append(". "); 
+                    sb.append(".").append(" "); 
                 } else if (c.hasContent()) {
                     sb.append(c.getContent()
                            .map(CellContent::shortString)

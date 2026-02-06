@@ -18,7 +18,7 @@ import it.unibo.goldhunt.items.api.CellContent;
 /**
  * This class tests BaseCellFactory.
  */
-public final class BaseCellFactoryTest {
+final class BaseCellFactoryTest {
 
     private CellFactory factory;
 

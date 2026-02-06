@@ -18,7 +18,7 @@ import it.unibo.goldhunt.engine.api.Position;
 /**
  * This class tests SimpleReveal.
  */
-public final class SimpleRevealTest {
+final class SimpleRevealTest {
 
     private Board board;
     private CellFactory factory;

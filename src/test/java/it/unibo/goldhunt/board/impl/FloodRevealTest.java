@@ -18,7 +18,7 @@ import it.unibo.goldhunt.engine.api.Position;
 /**
  * This class tests FloodReveal.
  */
-public final class FloodRevealTest {
+final class FloodRevealTest {
 
     private Board board;
     private CellFactory factory;
