@@ -17,6 +17,7 @@ import it.unibo.goldhunt.configuration.api.BoardGenerator;
 import it.unibo.goldhunt.configuration.api.LevelConfig;
 import it.unibo.goldhunt.engine.api.Position;
 import it.unibo.goldhunt.items.api.ItemFactory;
+import it.unibo.goldhunt.items.api.Revealable;
 import it.unibo.goldhunt.items.impl.Item;
 import it.unibo.goldhunt.items.impl.Trap;
 
@@ -46,7 +47,7 @@ public class BoardGeneratorImpl implements BoardGenerator {
     public Board generate(LevelConfig config, Position start, Position exit) {
 
         final int size = config.getBoardSize();
-
+        
         Board board = SquareBoard.create(size);
 
         initializeBoard(board);
@@ -98,7 +99,7 @@ public class BoardGeneratorImpl implements BoardGenerator {
     /**
      * Recursive implementation of the DFS algorithm used to compute a safe path.
      * Starting from the current position, the method adds the corresponding cell to the safe path,
-     * then explores adjacent cells in random order untile the exit position is reached.
+     * then explores adjacent cells in random order until the exit position is reached.
      * If a dead end is encountered, backtracking is performed by removing the current cell
      * from the safe path.
      * 
@@ -173,7 +174,7 @@ public class BoardGeneratorImpl implements BoardGenerator {
      */
     private void placeItems(Board board, Set<Cell> safePath, LevelConfig config) {
         
-        List<Cell> availableCells = new ArrayList<>();  // lista che conterrà tutte le caselle che non fanno parte del safepath
+        List<Cell> availableCells = new ArrayList<>();  
 
         for (Cell cell : board.getBoardCells()) {
             if (!safePath.contains(cell)) {
@@ -217,7 +218,7 @@ public class BoardGeneratorImpl implements BoardGenerator {
 
             int trapCount = 0;
             for (Cell neighbor : neighbors) {
-                if (neighbor.hasContent() && neighbor.getContent().get() instanceof Trap) {
+                if (neighbor.hasContent() && neighbor.getContent().get() instanceof Revealable) {
                     trapCount++;
                 }
             }
@@ -228,3 +229,4 @@ public class BoardGeneratorImpl implements BoardGenerator {
         }
     } 
 }
+

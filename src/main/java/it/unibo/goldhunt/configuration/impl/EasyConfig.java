@@ -60,3 +60,4 @@ public class EasyConfig implements LevelConfig {
         return BOARD_SIZE;
     }
 }
+
