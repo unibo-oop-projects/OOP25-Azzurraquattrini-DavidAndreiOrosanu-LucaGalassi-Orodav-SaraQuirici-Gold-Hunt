@@ -1,5 +1,7 @@
 package it.unibo.goldhunt.engine.api;
 
+import java.util.logging.Level;
+
 //davv
 public interface Status {
 
@@ -12,4 +14,10 @@ public interface Status {
     GameMode gameMode();
 
     int levelNumber();
+
+    Status withLevelState(LevelState newState);
+
+    Status withGameMode(GameMode newMode);
+
+    Status withLevelNumber(int newLevel);
 }
