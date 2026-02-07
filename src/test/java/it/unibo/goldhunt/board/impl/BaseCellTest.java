@@ -19,17 +19,16 @@ import it.unibo.goldhunt.items.api.CellContent;
 /**
  * This class tests BaseCell.
  */
-public final class BaseCellTest {
+final class BaseCellTest {
 
     private static final int OUT_OF_BOUNDS = 9;
 
-    private CellFactory factory;
     private Cell cell;
 
     @BeforeEach
     void init() {
-        this.factory = new BaseCellFactory();
-        this.cell = this.factory.createCell();
+        final CellFactory factory = new BaseCellFactory();
+        this.cell = factory.createCell();
     }
 
     /**

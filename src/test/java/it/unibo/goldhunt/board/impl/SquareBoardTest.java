@@ -21,7 +21,7 @@ import it.unibo.goldhunt.engine.api.Position;
 /**
  * This class tests SquareBoard.
  */
-public final class SquareBoardTest {
+final class SquareBoardTest {
 
     private static final int ADJACENT_CELLS_ON_EDGE = 5;
     private static final int OUT_OF_BOUNDS = 9;
