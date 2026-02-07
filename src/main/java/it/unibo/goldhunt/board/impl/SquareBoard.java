@@ -11,7 +11,6 @@ import java.util.Objects;
 import it.unibo.goldhunt.board.api.Board;
 import it.unibo.goldhunt.board.api.Cell;
 import it.unibo.goldhunt.engine.api.Position;
-import it.unibo.goldhunt.items.api.CellContent;
 
 /**
  * This class implements Board and it models a square board.
@@ -163,6 +162,7 @@ public final class SquareBoard implements Board {
         return dx <= 1 && dy <= 1 && !(dx == 0 && dy == 0);
     }
 
+<<<<<<< Updated upstream
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
@@ -187,6 +187,8 @@ public final class SquareBoard implements Board {
         return sb.toString();
     }
 
+=======
+>>>>>>> Stashed changes
     private void checkValidCell(final Cell cell) {
         if (!cellPositions.containsKey(cell)) {
             throw new IllegalArgumentException(CELL_NOT_IN_BOARD_EXCEPTION + cell);
