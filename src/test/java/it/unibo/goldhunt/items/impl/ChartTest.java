@@ -3,6 +3,7 @@ package it.unibo.goldhunt.items.impl;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ import it.unibo.goldhunt.items.api.CellContent;
 import it.unibo.goldhunt.items.api.Revealable;
 import it.unibo.goldhunt.player.api.Inventory;
 import it.unibo.goldhunt.player.api.Player;
+import it.unibo.goldhunt.player.api.PlayerOperations;
 
 public class ChartTest {
 
@@ -27,8 +29,9 @@ public class ChartTest {
     @BeforeEach
     void init() {
         board = new FakeBoard(5);
-        Player player = new FakePlayer(new Position(2, 2));
         chart = new Chart();
+        chart.player = new FakePlayer(new Position(2, 2));
+        chart.board = board;
     }
 
     @Test
@@ -119,37 +122,48 @@ public class ChartTest {
 
         @Override
         public List<Cell> getBoardCells() {
-            // TODO Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'getBoardCells'");
         }
 
         @Override
         public Position getCellPosition(Cell cell) {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'getCellPosition'");
+            for (Map.Entry<Position, Cell> entry : cells.entrySet()) {
+                if (entry.getValue() == cell) {
+                    return entry.getKey();
+                }
+            }
+            return null;
         }
 
         @Override
         public List<Cell> getAdjacentCells(Position p) {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'getAdjacentCells'");
+            List<Cell> adj = new ArrayList<>();
+            int[] dx = {-1, 0, 1, 0};
+            int[] dy = {0, -1, 0, 1};
+
+            for (int i = 0; i < 4; i++) {
+                int nborx = p.x() + dx[i];
+                int nbory = p.y() + dy[i];
+                Position nborp = new Position(nborx, nbory);
+                if (isPositionValid(nborp)) {
+                    adj.add(getCell(nborp));
+                }
+            }
+            return adj;
         }
 
         @Override
         public List<Cell> getRow(int index) {
-            // TODO Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'getRow'");
         }
 
         @Override
         public List<Cell> getColumn(int index) {
-            // TODO Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'getColumn'");
         }
 
         @Override
         public boolean isAdjacent(Position p1, Position p2) {
-            // TODO Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'isAdjacent'");
         }
 
@@ -167,34 +181,40 @@ public class ChartTest {
         }
         @Override
         public int livesCount() {
-            // TODO Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'livesCount'");
         }
         @Override
         public int goldCount() {
-            // TODO Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'goldCount'");
         }
         @Override
         public Inventory inventory() {
-            // TODO Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'inventory'");
+        }
+        @Override
+        public PlayerOperations withInventory(Inventory inventory) {
+            throw new UnsupportedOperationException("Unimplemented method 'withInventory'");
         }
         
     }
 
     static class TrapFake implements Revealable {
 
+        private boolean revealed = false;
+
         @Override
         public boolean applyEffect() {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'applyEffect'");
+            revealed = true;
+            return true;
         }
 
         @Override
         public String shortString() {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'shortString'");
+            return "T";
+        }
+
+        public boolean revealed(){
+        return revealed;
         }
     }
 }
