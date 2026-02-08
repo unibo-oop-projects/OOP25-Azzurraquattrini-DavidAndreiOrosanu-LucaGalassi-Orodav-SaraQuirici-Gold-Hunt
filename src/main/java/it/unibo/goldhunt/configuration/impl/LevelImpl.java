@@ -1,6 +1,7 @@
 //SARA
 package it.unibo.goldhunt.configuration.impl;
 
+import java.util.Objects;
 import it.unibo.goldhunt.board.api.Board;
 import it.unibo.goldhunt.configuration.api.BoardGenerator;
 import it.unibo.goldhunt.configuration.api.Level;
@@ -29,10 +30,10 @@ public class LevelImpl implements Level {
      * @param boardGenerator the board generator
      * @param player the player
      */
-    public LevelImpl(LevelConfig config, BoardGenerator boardGenerator, PlayerOperations player) {
-        this.config = config;
-        this.boardGenerator = boardGenerator;
-        this.player = player;
+    public LevelImpl(final LevelConfig config, final BoardGenerator boardGenerator, final PlayerOperations player) {
+        this.config = Objects.requireNonNull(config);
+        this.boardGenerator = Objects.requireNonNull(boardGenerator);
+        this.player = Objects.requireNonNull(player);
     }
 
     /**
@@ -40,7 +41,6 @@ public class LevelImpl implements Level {
      */
     @Override
     public void initBoard() {
-        
         final int size = config.getBoardSize();
         this.exit = new Position(size - 1, size - 1);
         this.board = boardGenerator.generate(config, START, exit);
