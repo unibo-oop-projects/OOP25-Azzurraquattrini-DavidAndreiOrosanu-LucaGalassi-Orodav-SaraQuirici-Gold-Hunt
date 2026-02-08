@@ -11,9 +11,9 @@ import it.unibo.goldhunt.engine.api.Position;
 public interface BoardGenerator {
 
     /**
-     * Generates a new game board according to the level configuration.
-     * The board is created with guaranteed safe path between the start and exit positions,
-     * and populated with traps and items.
+     * Creates and initializes a game board according to the level configuration.
+     * The board contains a guaranteed safe path between the start and exit positions,
+     * and filled with traps and items.
      * 
      * @param config the level configuration used to define board size and contents
      * @param start the starting position of the player
@@ -23,4 +23,5 @@ public interface BoardGenerator {
      */
     Board generate(LevelConfig config, Position start, Position exit);
 }
+
 
