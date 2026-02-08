@@ -9,7 +9,7 @@ import it.unibo.goldhunt.board.api.BoardFactory;
 import it.unibo.goldhunt.board.api.CellFactory;
 
 /**
- * This class is the implementantion of {@code BoardFactory}.
+ * This class is the implementantion of {@link BoardFactory}.
  */
 public class SquareBoardFactory implements BoardFactory {
 

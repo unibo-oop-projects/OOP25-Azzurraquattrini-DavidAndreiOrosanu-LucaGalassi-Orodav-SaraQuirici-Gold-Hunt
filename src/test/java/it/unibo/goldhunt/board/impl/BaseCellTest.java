@@ -107,7 +107,7 @@ final class BaseCellTest {
     }
 
     /**
-     * Tests that setAdjacentTraps() throws IllegalArgumentException
+     * Tests that {@link BaseCell#setAdjacentTraps(int)} throws {@link IllegalArgumentException}
      * when a negative number or a number greater than 8 is passed.
      */
     @Test
@@ -118,7 +118,7 @@ final class BaseCellTest {
 
 
     /**
-     * Tests that setContent() adds content to a cell correctly.
+     * Tests that {@link BaseCell#setContent(CellContent)} adds content to a cell correctly.
      */
     @Test
     void testSetContentSetsContent() {
@@ -130,7 +130,7 @@ final class BaseCellTest {
     }
 
     /**
-     * Test that setContent() adds content to a cell
+     * Test that {@link BaseCell#setContent(CellContent)} adds content to a cell
      * after its initial content has been removed.
      */
     @Test
@@ -145,7 +145,7 @@ final class BaseCellTest {
     }
 
     /**
-     * Tests that setContent() does not change a cell's existing content.
+     * Tests that {@link BaseCell#setContent(CellContent)} does not change a cell's existing content.
      */
     @Test
     void testSetContentThrowsIllegalStateExceptionIfAlreadyHasContent() {
@@ -156,7 +156,7 @@ final class BaseCellTest {
     }
 
     /**
-     * Tests that removeContent() removes a cell's content correctly.
+     * Tests that {@link BaseCell#removeContent()} removes a cell's content correctly.
      */
     @Test
     void testRemoveContent() {
@@ -168,7 +168,7 @@ final class BaseCellTest {
     }
 
     /**
-     * Tests that removeContent() works correctly when used
+     * Tests that {@link BaseCell#removeContent()} works correctly when used
      * on cells with no content.
      */
     @Test

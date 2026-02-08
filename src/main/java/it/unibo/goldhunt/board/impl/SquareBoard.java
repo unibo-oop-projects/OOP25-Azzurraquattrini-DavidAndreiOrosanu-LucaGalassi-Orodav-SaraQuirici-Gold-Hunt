@@ -14,7 +14,7 @@ import it.unibo.goldhunt.board.api.CellFactory;
 import it.unibo.goldhunt.engine.api.Position;
 
 /**
- * This class implements Board and it models a square board.
+ * This class implements {@link Board} and it models a square board.
  */
 public final class SquareBoard implements Board {
 

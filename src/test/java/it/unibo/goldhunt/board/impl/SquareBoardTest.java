@@ -39,7 +39,7 @@ final class SquareBoardTest {
     }
 
     /**
-     * Tests that SquareBoard.getBoardCells() returns 
+     * Tests that {@link SquareBoard#getBoardCells()} returns 
      * a list with all of the board's cells.
      */
     @Test
@@ -53,7 +53,7 @@ final class SquareBoardTest {
     }
 
     /**
-     * Tests that getCell() return the right cell.
+     * Tests that {@link SquareBoard#getCell(Position)} returns the right cell.
      */
     @Test
     void testGetCellReturnsRightCells() {
@@ -63,8 +63,9 @@ final class SquareBoardTest {
     }
 
     /**
-     * Tests that getCell() throws NullPointerException
-     * and IndexOutOfBoundsException correctly.
+     * Tests that {@link SquareBoard#getCell(Position)}
+     * throws {@link NullPointerException} and
+     * {@link IndexOutOfBoundsException} correctly.
      */
     @Test
     void testGetCellThrowsRightExceptions() {
@@ -74,7 +75,8 @@ final class SquareBoardTest {
     }
 
     /**
-     * Tests that getCellPosition() returns the right position.
+     * Tests that {@link SquareBoard#getCellPosition(Cell)}
+     * returns the right position.
      */
     @Test
     void testGetCellPositionReturnsRightPositions() {
@@ -84,8 +86,9 @@ final class SquareBoardTest {
     }
 
     /**
-     * Tests that getCellPosition() throws NullPointerException
-     * and IndexOutOfBoundsException correctly. 
+     * Tests that {@link SquareBoard#getCellPosition(Cell)}
+     * throws {@link NullPointerException} and
+     * {@link IndexOutOfBoundsException} correctly. 
      */
     @Test
     void testGetCellPositionThrowsRightExceptions() {
@@ -132,8 +135,9 @@ final class SquareBoardTest {
     }
 
     /**
-     * Tests that getAdjacentCells() throws
-     * NullPointerException and IndexOutOfBoundsException correctly.
+     * Tests that {@link SquareBoard#getAdjacentCells(Position)}
+     * throws {@link NullPointerException} and
+     * {@link IndexOutOfBoundsException} correctly.
      */
     @Test
     void testGetAdjacentCellsThrowsRightExceptions() {
@@ -143,7 +147,8 @@ final class SquareBoardTest {
     }
 
     /**
-     * Tests that getBoardSize() return the right board size.
+     * Tests that {@link SquareBoard#getBoardSize()}
+     * returns the right board size.
      */
     @Test
     void testGetBoardSize() {
@@ -151,7 +156,8 @@ final class SquareBoardTest {
     }
 
     /**
-     * Tests that getRow() returns the right board row.
+     * Tests that {@link SquareBoard#getRow(int)}
+     * returns the right board row.
      */
     @Test
     void testGetRowReturnsRightRow() {
@@ -161,7 +167,8 @@ final class SquareBoardTest {
     }
 
     /**
-     * Tests that getRow() throws IndexOutOfBoundsException correctly.
+     * Tests that {@link SquareBoard#getRow(int)}
+     * throws {@link IndexOutOfBoundsException} correctly.
      */
     @Test
     void testGetRowThrowsIndexOutOfBoundsException() {
@@ -170,7 +177,8 @@ final class SquareBoardTest {
     }
 
     /**
-     * Tests that getColumn() returns the right board column.
+     * Tests that {@link SquareBoard#getColumn(int)}
+     * returns the right board column.
      */
     @Test
     void testGetColumnReturnsRightColumn() {
@@ -180,7 +188,8 @@ final class SquareBoardTest {
     }
 
     /**
-     * Tests that getColumn() throws IndexOutOfBoundsException correctly.
+     * Tests that {@link SquareBoard#getColumn(int)}
+     * throws {@link IndexOutOfBoundsException} correctly.
      */
     @Test
     void testGetColumnThrowsIndexOutOfBoundsException() {
@@ -189,7 +198,8 @@ final class SquareBoardTest {
     }
 
     /**
-     * Tests that isPositionValid() returns the right results.
+     * Tests that {@link SquareBoard#isPositionValid(Position)}
+     * returns the right results.
      */
     @Test
     void testIsPositionValidReturnsRightResults() {
@@ -201,7 +211,8 @@ final class SquareBoardTest {
     }
 
     /**
-     * Tests that isPositionValid() throws NullPointerException correctly.
+     * Tests that {@link SquareBoard#isPositionValid(Position)}
+     * throws {@link NullPointerException} correctly.
      */
     @Test
     void testIsPositionValidThrowsNullPointerException() {
@@ -209,7 +220,8 @@ final class SquareBoardTest {
     }
 
     /**
-     * Tests that isAdjacent() returns the right results.
+     * Tests that {@link SquareBoard#isAdjacent(Position, Position)}
+     * returns the right results.
      */
     @Test
     void testIsAdjacentReturnsRightResults() {
@@ -222,7 +234,8 @@ final class SquareBoardTest {
     }
 
     /**
-     * Tests that isAdjacent() throws NullPointerException correctly.
+     * Tests that {@link SquareBoard#isAdjacent(Position, Position)}
+     * throws {@link NullPointerException} correctly.
      */
     @Test
     void testIsAdjacentThrowsNullPointerException() {
@@ -233,7 +246,8 @@ final class SquareBoardTest {
     }
 
     /**
-     * Tests that isAdjacent() throws IndexOutOfBoundsException correctly.
+     * Tests that {@link SquareBoard#isAdjacent(Position, Position)}
+     * throws {@link IndexOutOfBoundsException} correctly.
      */
     @Test
     void testIsAdjacentThrowsIndexOutOfBoundsException() {
