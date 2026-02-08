@@ -3,6 +3,7 @@
 package it.unibo.goldhunt.board.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -14,15 +15,13 @@ import it.unibo.goldhunt.board.api.CellFactory;
 /**
  * This class tests {@link SquareBoardFactory}.
  */
-public class SquareBoardFactoryTest {
+final class SquareBoardFactoryTest {
 
-    private CellFactory cellFactory;
     private SquareBoardFactory boardFactory;
 
     @BeforeEach
     void init() {
-        this.cellFactory = new BaseCellFactory();
-        this.boardFactory = new SquareBoardFactory(this.cellFactory);
+        this.boardFactory = new SquareBoardFactory(new BaseCellFactory());
     }
 
     /**
@@ -41,8 +40,9 @@ public class SquareBoardFactoryTest {
     @Test
     void testCreateEmptyBoardCreatesBoardOfCorrectSize() {
         final Board board = boardFactory.createEmptyBoard(3);
+        assertNotNull(board);
         assertEquals(3, board.getBoardSize());
-        assertEquals(9, board.getBoardCells().size());
+        assertEquals(3 * 3, board.getBoardCells().size());
     }
 
     /**

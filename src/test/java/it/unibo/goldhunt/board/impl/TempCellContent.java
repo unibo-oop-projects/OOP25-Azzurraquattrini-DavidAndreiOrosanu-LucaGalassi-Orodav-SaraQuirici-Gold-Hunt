@@ -7,7 +7,7 @@ import it.unibo.goldhunt.items.api.CellContent;
 /**
  * Support class for {@link BaseCellFactoryTest} and {@link BaseCellTest}.
  */
-public final class TempCellContent implements CellContent {
+final class TempCellContent implements CellContent {
 
     /**
      * {@inheritDoc}

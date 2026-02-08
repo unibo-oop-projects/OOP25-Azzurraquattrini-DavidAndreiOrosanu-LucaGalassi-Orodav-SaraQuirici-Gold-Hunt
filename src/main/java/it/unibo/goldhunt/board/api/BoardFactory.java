@@ -6,6 +6,7 @@ package it.unibo.goldhunt.board.api;
  * This interface models a board factory.
  * It creates a board with empty cells.
  */
+@FunctionalInterface
 public interface BoardFactory {
 
     /**

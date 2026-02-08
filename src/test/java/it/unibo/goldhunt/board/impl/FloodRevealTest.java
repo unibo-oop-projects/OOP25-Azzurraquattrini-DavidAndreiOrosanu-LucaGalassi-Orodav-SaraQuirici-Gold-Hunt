@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 
 import it.unibo.goldhunt.board.api.Board;
 import it.unibo.goldhunt.board.api.Cell;
-import it.unibo.goldhunt.board.api.CellFactory;
 import it.unibo.goldhunt.board.api.RevealStrategy;
 import it.unibo.goldhunt.engine.api.Position;
 
@@ -21,14 +20,12 @@ import it.unibo.goldhunt.engine.api.Position;
 final class FloodRevealTest {
 
     private Board board;
-    private CellFactory factory;
     private Cell[][] cells;
     private RevealStrategy strategy;
 
     @BeforeEach
     void init() {
-        this.factory = new BaseCellFactory();
-        this.board = new SquareBoardFactory(factory).createEmptyBoard(3);
+        this.board = new SquareBoardFactory(new BaseCellFactory()).createEmptyBoard(3);
         this.cells = new Cell[3][3];
         cellsSnapshot();
         cells[0][0].setAdjacentTraps(1);

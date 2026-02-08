@@ -49,7 +49,7 @@ final class SquareBoardTest {
         final Board otherBoard = new SquareBoard(3, factory);
 
         assertEquals(3, otherBoard.getBoardSize());
-        assertEquals(9, otherBoard.getBoardCells().size());
+        assertEquals(3 * 3, otherBoard.getBoardCells().size());
         assertTrue(board.getBoardCells().stream().allMatch(Objects::nonNull));
     }
 
