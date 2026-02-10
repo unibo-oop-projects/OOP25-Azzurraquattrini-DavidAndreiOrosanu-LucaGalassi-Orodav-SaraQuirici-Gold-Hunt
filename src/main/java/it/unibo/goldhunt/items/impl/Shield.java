@@ -43,7 +43,6 @@ public class Shield extends Item{
 
     @Override
     public KindOfItem getItem() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getItem'");
+        return KindOfItem.SHIELD;
     }
 }

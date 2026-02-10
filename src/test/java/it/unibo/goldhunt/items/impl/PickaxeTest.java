@@ -15,6 +15,7 @@ import it.unibo.goldhunt.board.api.Cell;
 import it.unibo.goldhunt.engine.api.Position;
 import it.unibo.goldhunt.items.api.CellContent;
 import it.unibo.goldhunt.items.api.ItemContext;
+import it.unibo.goldhunt.player.api.PlayerOperations;
 
 public class PickaxeTest {
     private Pickaxe pick;
@@ -30,7 +31,7 @@ public class PickaxeTest {
 
     @RepeatedTest(10)
     void effectPick(){
-        pick.applyEffect();
+        pick.applyEffect(playerop);
         boolean found = false;
 
         for (int i = 0; i < board.size; i++) {
@@ -46,14 +47,14 @@ public class PickaxeTest {
     void pickOnTrap(){
         board.getRow(0).forEach(c -> c.setContent(new FakeTrap()));
     
-        pick.applyEffect();
+        pick.applyEffect(playerop);
     }
 
     private final static class FakeTrap implements CellContent{
 
         @Override
-        public boolean applyEffect() {
-            return true;
+        public PlayerOperations applyEffect(PlayerOperations playerop) {
+            return playerop;
         }
 
         @Override

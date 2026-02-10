@@ -41,8 +41,7 @@ public class Pickaxe extends Item implements ClearCells{
 
     @Override
     public KindOfItem getItem() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getItem'");
+        return KindOfItem.PICKAXE;
     }
 
 }

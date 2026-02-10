@@ -69,9 +69,11 @@ public class Chart extends Item{
         var board = context.board();
 
         recursiveCollect(board.getCell(playerop.position()), RADIUS, collectedCells, board);
+
         collectedCells.stream()
         .filter(c-> c.getContent().isPresent() && c.getContent().get() instanceof Revealable)
         .forEach(Cell::toggleFlag);
+        
         return playerop;
     }
 
