@@ -3,6 +3,7 @@
 package it.unibo.goldhunt.board.impl;
 
 import it.unibo.goldhunt.items.api.CellContent;
+import it.unibo.goldhunt.player.api.PlayerOperations;
 
 /**
  * Support class for {@link BaseCellFactoryTest} and {@link BaseCellTest}.
@@ -13,8 +14,8 @@ final class TempCellContent implements CellContent {
      * {@inheritDoc}
      */
     @Override
-    public boolean applyEffect() {
-        return true;
+    public PlayerOperations applyEffect(final PlayerOperations playerop) {
+        return null;
     }
 
     /**
