@@ -1,6 +1,8 @@
 package it.unibo.goldhunt.items.api;
 //luca
 
+import it.unibo.goldhunt.player.api.PlayerOperations;
+
 /**
  * Represents the content and effects of an item.
  * <p>
@@ -16,7 +18,7 @@ public interface CellContent{
      * @return {@code true} if the effect was successfully applied,
      *         {@code false} otherwise
      */
-    public boolean applyEffect();
+    public PlayerOperations applyEffect(PlayerOperations playerop);
 
     /**
      * Returns a short string representation of the class.
@@ -37,4 +39,6 @@ public interface CellContent{
     default boolean isTrap(){
         return false;
     }
+
+
 }

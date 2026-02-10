@@ -1,5 +1,8 @@
 package it.unibo.goldhunt.items.impl;
 
+import it.unibo.goldhunt.items.api.KindOfItem;
+import it.unibo.goldhunt.player.api.PlayerOperations;
+
 public class Lifes extends Item{
 
     public static final String ITEM_NAME = "life";
@@ -11,22 +14,26 @@ public class Lifes extends Item{
 
 
     @Override
-    public boolean applyEffect() {
+    public PlayerOperations applyEffect(PlayerOperations playerop) {
         if(context == null){
             throw new IllegalStateException("item cannot bound");
         }
 
-        var playerop = context.playerop();
-
         if(playerop.livesCount() < MAX_QUANTITY_LIVES){
-            playerop.addLives(PLUS_LIFE);
-            return true;
+            return playerop.addLives(PLUS_LIFE);
+        
         }
-        return false;
+        return playerop;
     }
 
     @Override
     public String shortString() {
         return "L";
+    }
+
+
+    @Override
+    public KindOfItem getItem() {
+        return KindOfItem.LIVES;
     }
 }

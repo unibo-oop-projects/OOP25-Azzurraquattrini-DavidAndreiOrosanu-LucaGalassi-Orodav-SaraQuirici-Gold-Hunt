@@ -1,5 +1,8 @@
 package it.unibo.goldhunt.items.impl;
 
+import it.unibo.goldhunt.items.api.KindOfItem;
+import it.unibo.goldhunt.player.api.PlayerOperations;
+
 //luca
 public class Gold extends Item{
 
@@ -11,28 +14,29 @@ public class Gold extends Item{
     }
 
     @Override
-    public boolean applyEffect() {
+    public PlayerOperations applyEffect(PlayerOperations playerop) {
         if(context == null){
             throw new IllegalStateException("item cannot bound");
         }
-
-        var playerop = context.playerop();
         var inventory = context.inventory();
         int multiplier = 1;
 
-        if(inventory.hasAtLeast(new LuckyClover(), MAX_QUANTITY_CLOVER)){
+        if(inventory.hasAtLeast(KindOfItem.LUCKYCLOVER, MAX_QUANTITY_CLOVER)){
             multiplier = LUCKY_CLOVER_MULTIPLIER;
 
         }
 
-        playerop.addGold(ADDED_GOLD * multiplier);
-
-        return true;
+        return playerop.addGold(ADDED_GOLD * multiplier);
     }
 
     @Override
     public String shortString() {
         return "G";
+    }
+
+    @Override
+    public KindOfItem getItem() {
+        return KindOfItem.GOLD;
     }
 
 }
