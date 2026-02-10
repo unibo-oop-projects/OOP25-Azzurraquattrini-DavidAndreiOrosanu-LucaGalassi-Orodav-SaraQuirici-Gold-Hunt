@@ -20,17 +20,20 @@ public class Trap implements Revealable{
 
 
     @Override
-    public boolean applyEffect() {
+    public PlayerOperations applyEffect(final PlayerOperations playerop) {
         if(playerop == null){
             throw new IllegalStateException("cannot bind items");
         }
-        
-        playerop.addLives(DAMAGE);
-        return true;
+        return playerop.addLives(DAMAGE);
     }
 
     @Override
     public String shortString() {
         return "T";
+    }
+
+    @Override
+    public boolean isTrap(){
+        return true;
     }
 }

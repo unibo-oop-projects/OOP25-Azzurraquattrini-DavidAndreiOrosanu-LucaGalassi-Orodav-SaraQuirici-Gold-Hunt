@@ -4,6 +4,8 @@ import java.util.List;
 
 import it.unibo.goldhunt.board.api.Cell;
 import it.unibo.goldhunt.items.api.ClearCells;
+import it.unibo.goldhunt.items.api.KindOfItem;
+import it.unibo.goldhunt.player.api.PlayerOperations;
 
 //luca
 public class Dynamite extends Item implements ClearCells{
@@ -18,29 +20,33 @@ public class Dynamite extends Item implements ClearCells{
     }
 
     @Override
-    public boolean applyEffect() {
+    public PlayerOperations applyEffect(PlayerOperations playerop) {
 
         if(context == null){
             throw new IllegalStateException("item cannot bound");
         }
 
         var board = context.board();
-        var playerop = context.playerop();
 
         Cell currentCell = board.getCell(playerop.position());
         
         List<Cell> adjacent = board.getAdjacentCells(board.getCellPosition(currentCell));
         if(adjacent == null || adjacent.isEmpty()){
-            throw new IllegalStateException("no cells nearby");
+            return playerop;
         }
         disarm(adjacent);
-        return true;
+        return playerop;
         }
         
 
     @Override
     public String shortString() {
         return "D";
+    }
+
+    @Override
+    public KindOfItem getItem() {
+        return KindOfItem.DYNAMITE;
     }
 
 }

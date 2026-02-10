@@ -1,6 +1,7 @@
 package it.unibo.goldhunt.items.impl;
 
-import it.unibo.goldhunt.player.api.Inventory;
+import it.unibo.goldhunt.items.api.KindOfItem;
+import it.unibo.goldhunt.player.api.PlayerOperations;
 
 public class LuckyClover extends Item{
 
@@ -12,15 +13,26 @@ public class LuckyClover extends Item{
     }
 
     @Override
-    public boolean applyEffect() {
-        Inventory inventory = context.inventory();
-        inventory.add(this, MAX_QUANTITY_CLOVER);
-        return true;
+    public PlayerOperations applyEffect(PlayerOperations playerop) {
+        if(playerop == null){
+            throw new IllegalArgumentException();
+        }
+
+        if(context == null){
+            throw new IllegalArgumentException();
+        }
+        playerop.addItem(getItem(), MAX_QUANTITY_CLOVER);
+        return playerop;
     }
 
     @Override
     public String shortString() {
         return "C";
+    }
+
+    @Override
+    public KindOfItem getItem() {
+        return KindOfItem.LUCKYCLOVER;
     }
 
 }

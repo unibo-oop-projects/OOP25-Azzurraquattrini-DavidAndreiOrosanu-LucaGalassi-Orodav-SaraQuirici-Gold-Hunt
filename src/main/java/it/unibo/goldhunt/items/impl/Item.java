@@ -23,5 +23,4 @@ public abstract class Item implements ItemTypes{
     public void bind(ItemContext context){
         this.context = context;
     }
-
 }

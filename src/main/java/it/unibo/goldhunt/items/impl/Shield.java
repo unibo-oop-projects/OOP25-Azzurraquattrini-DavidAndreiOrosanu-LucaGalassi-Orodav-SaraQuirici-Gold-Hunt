@@ -1,6 +1,8 @@
 package it.unibo.goldhunt.items.impl;
 
+import it.unibo.goldhunt.items.api.KindOfItem;
 import it.unibo.goldhunt.items.api.Revealable;
+import it.unibo.goldhunt.player.api.PlayerOperations;
 
 //luca
 public class Shield extends Item{
@@ -15,20 +17,19 @@ public class Shield extends Item{
     }
 
     @Override
-    public boolean applyEffect() {
+    public PlayerOperations applyEffect(PlayerOperations playerop) {
         if(context == null){
             throw new IllegalStateException("cannot bound item");
         }
 
-        var playerop = context.playerop();
+        final int before = playerop.livesCount();
+        final PlayerOperations afterTrap = trap.applyEffect(playerop);
+        final int damageTaken = before - afterTrap.livesCount();
 
-        if(trap != null){
-            int lives = playerop.livesCount();
-            trap.applyEffect();
-            playerop.addLives(lives-playerop.livesCount());
-            return true;
+        if(damageTaken > 0){
+            return afterTrap.addLives(damageTaken);
         }
-        return false;
+        return afterTrap;
     }
 
     @Override
@@ -38,5 +39,10 @@ public class Shield extends Item{
 
     public void bindTrap(Revealable trap){
         this.trap = trap;
+    }
+
+    @Override
+    public KindOfItem getItem() {
+        return KindOfItem.SHIELD;
     }
 }

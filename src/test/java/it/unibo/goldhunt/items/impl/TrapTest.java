@@ -26,7 +26,7 @@ public class TrapTest {
     @Test
     void testEffect(){
         int defaultLives = playerop.livesCount();
-        trap.applyEffect();
+        trap.applyEffect(playerop);
         assertEquals(defaultLives + Trap.DAMAGE , playerop.livesCount(),  "trap should reduce life by DAMAGE");
     }
 

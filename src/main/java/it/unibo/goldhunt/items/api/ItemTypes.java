@@ -18,4 +18,5 @@ public interface ItemTypes extends CellContent{
      */
     String getName();
 
+    KindOfItem getItem();
 }
