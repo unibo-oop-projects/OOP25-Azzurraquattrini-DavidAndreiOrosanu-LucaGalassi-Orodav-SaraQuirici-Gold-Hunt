@@ -8,7 +8,7 @@ import it.unibo.goldhunt.board.api.Cell;
 import it.unibo.goldhunt.items.api.CellContent;
 
 /**
- * This class is the implementation of Cell.
+ * This class is the implementation of {@link Cell}.
  */
 public final class BaseCell implements Cell {
 
@@ -21,9 +21,9 @@ public final class BaseCell implements Cell {
     private Optional<CellContent> content;
 
     /**
-     * This constructor creates an empty BaseCell.
+     * This constructor creates an empty {@code BaseCell}.
      */
-    protected BaseCell() {
+    BaseCell() {
         this.revealed = false;
         this.flagged = false;
         this.adjacentTraps = NO_ADJACENT_TRAPS;
@@ -31,11 +31,11 @@ public final class BaseCell implements Cell {
     }
 
     /**
-     * This constructor creates a BaseCell with content.
+     * This constructor creates a {@code BaseCell} with content.
      * 
      * @param content the cell's object
      */
-    protected BaseCell(final Optional<CellContent> content) {
+    BaseCell(final Optional<CellContent> content) {
         this();
         this.content = content;
     }

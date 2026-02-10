@@ -11,28 +11,25 @@ import org.junit.jupiter.api.Test;
 
 import it.unibo.goldhunt.board.api.Board;
 import it.unibo.goldhunt.board.api.Cell;
-import it.unibo.goldhunt.board.api.CellFactory;
 import it.unibo.goldhunt.board.api.RevealStrategy;
 import it.unibo.goldhunt.engine.api.Position;
 
 /**
- * This class tests SimpleReveal.
+ * This class tests {@link SimpleReveal}.
  */
 final class SimpleRevealTest {
 
     private Board board;
-    private CellFactory factory;
     private RevealStrategy strategy;
 
     @BeforeEach
     void init() {
-        this.factory = new BaseCellFactory();
-        this.board = new SquareBoardFactory(factory).createEmptyBoard(3);
+        this.board = new SquareBoardFactory(new BaseCellFactory()).createEmptyBoard(3);
         this.strategy = new SimpleReveal();
     }
 
     /**
-     * Tests that reveal() reveals the target cell correctly.
+     * Tests that {@link SimpleReveal#reveal(Board, Position)} reveals the target cell correctly.
      */
     @Test
     void testRevealRevealsRightCell() {
@@ -44,7 +41,8 @@ final class SimpleRevealTest {
     }
 
     /**
-     * Tests that reveal() throws NullPointerException correctly.
+     * Tests that {@link RevealStrategy#reveal(Board, Position)}
+     * throws {@link NullPointerException} correctly.
      */
     @Test
     void testRevealThrowsNullPointerException() {
@@ -54,7 +52,8 @@ final class SimpleRevealTest {
     }
 
     /**
-     * Tests that reveal() throws IndexOutOfBoundsException correctly. 
+     * Tests that {@link RevealStrategy#reveal(Board, Position)}
+     * throws {@link IndexOutOfBoundsException} correctly. 
      */
     @Test
     void testRevealThrowsIndexOutOfBoundsException() {

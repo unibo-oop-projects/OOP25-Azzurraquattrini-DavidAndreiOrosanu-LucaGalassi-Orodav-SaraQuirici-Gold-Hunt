@@ -9,7 +9,7 @@ import it.unibo.goldhunt.board.api.RevealStrategy;
 import it.unibo.goldhunt.engine.api.Position;
 
 /**
- * This class implements RevealStrategy.
+ * This class implements {@link RevealStrategy}.
  * With this reveal strategy, cells are only revealed one at a time.
  */
 public final class SimpleReveal implements RevealStrategy {

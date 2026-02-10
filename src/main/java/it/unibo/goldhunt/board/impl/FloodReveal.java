@@ -10,7 +10,7 @@ import it.unibo.goldhunt.board.api.RevealStrategy;
 import it.unibo.goldhunt.engine.api.Position;
 
 /**
- * This class implements RevealStrategy.
+ * This class implements {@link RevealStrategy}.
  * With this reveal strategy, when a cell with no adjacent traps is revealed,
  * all adjacent cells with no traps are revealed as well.
  */

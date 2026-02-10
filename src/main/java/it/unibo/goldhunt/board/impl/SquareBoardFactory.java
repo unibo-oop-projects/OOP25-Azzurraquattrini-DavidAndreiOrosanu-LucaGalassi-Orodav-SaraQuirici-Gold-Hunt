@@ -9,12 +9,17 @@ import it.unibo.goldhunt.board.api.BoardFactory;
 import it.unibo.goldhunt.board.api.CellFactory;
 
 /**
- * This class is the implementantion of {@code BoardFactory}.
+ * This class is the implementantion of {@link BoardFactory}.
  */
-public class SquareBoardFactory implements BoardFactory {
+public final class SquareBoardFactory implements BoardFactory {
 
-    private CellFactory cellFactory;
+    private final CellFactory cellFactory;
 
+    /**
+     * {@code SquareBoardFactory}'s constructor.
+     * 
+     * @param cellFactory the factory that creates the board's cells
+     */
     public SquareBoardFactory(final CellFactory cellFactory) {
         this.cellFactory = Objects.requireNonNull(cellFactory);
     }

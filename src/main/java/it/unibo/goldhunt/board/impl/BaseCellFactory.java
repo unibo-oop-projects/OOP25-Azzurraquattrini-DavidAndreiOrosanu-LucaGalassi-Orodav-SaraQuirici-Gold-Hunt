@@ -9,7 +9,7 @@ import it.unibo.goldhunt.board.api.CellFactory;
 import it.unibo.goldhunt.items.api.CellContent;
 
 /**
- * This class is the implementation of CellFactory.
+ * This class is the implementation of {@link CellFactory}.
  */
 public final class BaseCellFactory implements CellFactory {
 
