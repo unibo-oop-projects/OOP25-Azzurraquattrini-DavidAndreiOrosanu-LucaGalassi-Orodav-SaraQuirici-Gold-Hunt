@@ -5,6 +5,8 @@ import java.util.Random;
 
 import it.unibo.goldhunt.board.api.Cell;
 import it.unibo.goldhunt.items.api.ClearCells;
+import it.unibo.goldhunt.items.api.KindOfItem;
+import it.unibo.goldhunt.player.api.PlayerOperations;
 
 public class Pickaxe extends Item implements ClearCells{
 
@@ -16,7 +18,7 @@ public class Pickaxe extends Item implements ClearCells{
     }
 
     @Override
-    public boolean applyEffect() {
+    public PlayerOperations applyEffect(PlayerOperations playerop) {
         if(context == null){
             throw new IllegalStateException("cannot bind items");
         }
@@ -29,11 +31,18 @@ public class Pickaxe extends Item implements ClearCells{
         : board.getColumn(idx);
 
         disarm(cells);
-        return true;
+        return playerop;
     }
 
     @Override
     public String shortString() {
         return "P";
     }
+
+    @Override
+    public KindOfItem getItem() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getItem'");
+    }
+
 }

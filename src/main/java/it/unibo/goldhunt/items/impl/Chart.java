@@ -6,7 +6,9 @@ import java.util.Set;
 
 import it.unibo.goldhunt.board.api.Board;
 import it.unibo.goldhunt.board.api.Cell;
+import it.unibo.goldhunt.items.api.KindOfItem;
 import it.unibo.goldhunt.items.api.Revealable;
+import it.unibo.goldhunt.player.api.PlayerOperations;
 
 
 //luca
@@ -59,18 +61,23 @@ public class Chart extends Item{
     }
 
     @Override
-    public boolean applyEffect() {
+    public PlayerOperations applyEffect(PlayerOperations playerop) {
         if (context == null) {
             throw new IllegalStateException("item context not bound");
         }   
+
         var board = context.board();
-        var playerop = context.playerop();
 
         recursiveCollect(board.getCell(playerop.position()), RADIUS, collectedCells, board);
         collectedCells.stream()
         .filter(c-> c.getContent().isPresent() && c.getContent().get() instanceof Revealable)
         .forEach(Cell::toggleFlag);
-        return true;
+        return playerop;
+    }
+
+    @Override
+    public KindOfItem getItem() {
+        return KindOfItem.CHART;
     }
 
 }
