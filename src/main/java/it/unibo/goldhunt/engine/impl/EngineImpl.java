@@ -6,6 +6,7 @@ import java.util.stream.IntStream;
 
 import it.unibo.goldhunt.board.api.Board;
 import it.unibo.goldhunt.board.api.RevealStrategy;
+import it.unibo.goldhunt.board.impl.ReadOnlyBoardAdapter;
 import it.unibo.goldhunt.engine.api.ActionEffect;
 import it.unibo.goldhunt.engine.api.ActionResult;
 import it.unibo.goldhunt.engine.api.GameMode;

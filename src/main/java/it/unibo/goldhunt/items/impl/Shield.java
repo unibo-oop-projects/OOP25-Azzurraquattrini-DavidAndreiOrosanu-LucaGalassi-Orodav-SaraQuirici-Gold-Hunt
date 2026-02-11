@@ -7,17 +7,29 @@ import it.unibo.goldhunt.player.api.PlayerOperations;
 //luca
 public class Shield extends Item{
 
-    private final static String ITEM_NAME = "Shield";
+    private static final String ITEM_NAME = "Shield";
 
     public Revealable trap;
 
+    /**
+     * Returns the name of the item
+     * 
+     * @return "Shield"
+     */
     @Override
     public String getName() {
         return ITEM_NAME;
     }
 
+    /**
+     * Applies the effect of a trap but restores any life lost, effectively nullifying the damage.
+     * 
+     * @param playerop the player to protect.
+     * @return the player with restored health if a trap was triggered.
+     * @throws IllegalStateException if the context is missing
+     */
     @Override
-    public PlayerOperations applyEffect(PlayerOperations playerop) {
+    public PlayerOperations applyEffect(final PlayerOperations playerop) {
         if(context == null){
             throw new IllegalStateException("cannot bound item");
         }
@@ -36,15 +48,29 @@ public class Shield extends Item{
         return afterTrap;
     }
 
+    /**
+     * Returns a short string representing the item.
+     * 
+     * @return "S"
+     */
     @Override
     public String shortString() {
         return "S";
     }
 
-    public void bindTrap(Revealable trap){
+    /**
+     * Connects a trap to this shield.
+     * @param trap the trap to bind.
+     */
+    public void bindTrap(final Revealable trap){
         this.trap = trap;
     }
 
+    /**
+     * Returns the type of this item.
+     * 
+     * @return {@link KindOfItem#SHIELD}
+     */
     @Override
     public KindOfItem getItem() {
         return KindOfItem.SHIELD;

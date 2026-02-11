@@ -8,7 +8,7 @@ import java.util.Optional;
 import it.unibo.goldhunt.board.api.ReadOnlyBoard;
 
 /**
- * Read-only snapshot of the current game state.
+ * Represents an immutable snapshot.
  */
 public interface GameState {
 
