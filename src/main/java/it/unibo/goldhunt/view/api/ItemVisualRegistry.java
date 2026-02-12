@@ -1,13 +1,14 @@
 package it.unibo.goldhunt.view.api;
 
-import java.awt.Color;
+import javax.swing.ImageIcon;
 
 public interface ItemVisualRegistry {
 
-    String getGlyph(String getContentID);
+    String getGlyph(final String getContentID);
 
-    Color getColor(String contentID);
+    String getTooltip(final String contentID);
 
-    String getItemDescription(String contentID);
+    String getStyleKey(final String contentID);
 
+    ImageIcon getIcon(String id);
 }
