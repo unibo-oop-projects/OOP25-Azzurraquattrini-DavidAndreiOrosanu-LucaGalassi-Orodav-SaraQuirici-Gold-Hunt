@@ -1,4 +1,4 @@
-package it.unibo.goldhunt.view.impl;
+package it.unibo.goldhunt.view.swing.components;
 
 import java.awt.FlowLayout;
 
@@ -8,6 +8,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.plaf.DimensionUIResource;
+
+import it.unibo.goldhunt.view.impl.ItemRegistry;
 
 public class LegendPanel extends JPanel {
 

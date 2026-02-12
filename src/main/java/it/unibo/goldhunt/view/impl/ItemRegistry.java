@@ -19,7 +19,7 @@ public class ItemRegistry implements ItemVisualRegistry {
         glyphMap.put("M", "M");
         tooltipMap.put("M", "Chart");
         stylekeyMap.put("M", "chart-style");
-        iconMap.put("M", new ImageIcon(getClass().getResource("/gold.png")));
+        iconMap.put("M", new ImageIcon(getClass().getResource("/map.png")));
         if (getClass().getResource("/gold.png") == null) {
         System.err.println("gold.png not found");
         }
