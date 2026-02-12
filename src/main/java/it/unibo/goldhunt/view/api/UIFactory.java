@@ -15,11 +15,15 @@ import java.awt.LayoutManager;
  */
 public interface UIFactory {
 
-    JFrame createFrame();
+    JFrame createFrame(String title);
 
     JPanel createPanel(LayoutManager manager);
 
-    JLabel createLabel(String text);
+    JLabel createStandardLabel(String text);
+
+    JLabel createSecondaryLabel(String text);
+
+    JLabel createTitleLabel(String text);
 
     JButton createButton(String text);
 
