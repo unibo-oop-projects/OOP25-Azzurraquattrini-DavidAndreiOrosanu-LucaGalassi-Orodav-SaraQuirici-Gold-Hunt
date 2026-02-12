@@ -27,7 +27,7 @@ public interface UIFactory {
 
     JButton createButton(String text);
 
-    TopBar createTopBar(String title);
+    JButton createIconButton(String icon);
 
     Icon loadIcon(String iconName);
 
