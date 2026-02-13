@@ -21,6 +21,20 @@ import it.unibo.goldhunt.view.viewstate.CellViewState;
  */
 public final class CellButton extends JButton {
 
+    private static final int NOT_REVEALED_R = 175;
+    private static final int NOT_REVEALED_G = 134;
+    private static final int NOT_REVEALED_B = 80;
+    private static final int REVEALED_RGB = 96;
+
+    private static final String EXIT = "E";
+    private static final String PLAYER = "Q";
+    private static final String FLAG = "F";
+
+    private static final String STYLE_HIDDEN = "cell.hidden";
+    private static final String STYLE_FLAGGED = "cell.flagged";
+    private static final String STYLE_REVEALED = "cell.revealed";
+    private static final String STYLE_PLAYER = "cell.player";
+
     private final Position position;
 
     private GameView.Listener listener;
@@ -35,7 +49,7 @@ public final class CellButton extends JButton {
      * @param position the cell's position in the board
      * @param registry the used item visual registry
      */
-    public CellButton (final Position position, final ItemVisualRegistry registry) {
+    public CellButton(final Position position, final ItemVisualRegistry registry) {
         this.position = Objects.requireNonNull(position);
         this.registry = Objects.requireNonNull(registry);
 
@@ -52,8 +66,8 @@ public final class CellButton extends JButton {
 
                 if (SwingUtilities.isLeftMouseButton(e)) {
                     listener.onReveal(position);
-                } else if (SwingUtilities.isRightMouseButton(e) &&
-                        ("cell.hidden".equals(lastStyleKey) || "cell.flagged".equals(lastStyleKey))) {
+                } else if (SwingUtilities.isRightMouseButton(e)
+                        && (STYLE_HIDDEN.equals(lastStyleKey) || STYLE_FLAGGED.equals(lastStyleKey))) {
                             listener.onToggleFlag(position);
                 }
             }
@@ -95,7 +109,7 @@ public final class CellButton extends JButton {
         setIcon(null);
         setForeground(Color.BLACK);
 
-        if ("cell.player".equals(state.styleKey())) {
+        if (STYLE_PLAYER.equals(state.styleKey())) {
             renderPlayer(state);
         } else if (!state.revealed()) {
             renderHidden(state);
@@ -104,34 +118,26 @@ public final class CellButton extends JButton {
         }
 
         applyStyle(state.styleKey());
-        revalidate();
         repaint();
 
     }
 
-    private void renderPlayer (final CellViewState state) {
-        final String symbol = state.symbol();
-    
-        if ("T".equals(symbol)) {
-            setIcon(registry.getIcon("T"));
-            return;
-        }
-    
-        if (registry.getAllItemsID().contains("Q")) {
-            setIcon(registry.getIcon("Q"));
+    private void renderPlayer(final CellViewState state) {
+        if (registry.getAllItemsID().contains(PLAYER)) {
+            setIcon(registry.getIcon(PLAYER));
         }
     }
-    
-    private void renderHidden (final CellViewState state) {
-        if (state.flagged()) {
-            if (registry.getAllItemsID().contains("F")) {
-                setIcon(registry.getIcon("F"));
-            }
+
+    private void renderHidden(final CellViewState state) {
+        final String symbol = state.symbol();
+
+        if (EXIT.equals(symbol) && registry.getAllItemsID().contains(EXIT)) {
+            setIcon(registry.getIcon(EXIT));
+            return;
         }
 
-        final String symbol = state.symbol();
-        if ("E".equals(symbol) && registry.getAllItemsID().contains("E")) {
-            setIcon(registry.getIcon("E"));
+        if (state.flagged() && registry.getAllItemsID().contains(FLAG)) {
+            setIcon(registry.getIcon(FLAG));
         }
     }
 
@@ -148,7 +154,7 @@ public final class CellButton extends JButton {
         }
     }
 
-    private void applyStyle (final String styleKey) {
+    private void applyStyle(final String styleKey) {
         Objects.requireNonNull(styleKey);
 
         if (styleKey.equals(lastStyleKey)) {
@@ -156,23 +162,18 @@ public final class CellButton extends JButton {
         }
 
         switch (styleKey) {
-            case "cell.hidden" -> {
-                setBackground(new Color(175, 134, 80));
+            case STYLE_HIDDEN, STYLE_FLAGGED -> {
+                setBackground(new Color(NOT_REVEALED_R, NOT_REVEALED_G, NOT_REVEALED_B));
                 setBorder(BorderFactory.createRaisedBevelBorder());
             }
 
-            case "cell.flagged" -> {
-                setBackground(new Color(175, 134, 80));
-                setBorder(BorderFactory.createRaisedBevelBorder());
-            }
-
-            case "cell.revealed" -> {
-                setBackground(new Color(96, 96, 96));
+            case STYLE_REVEALED -> {
+                setBackground(new Color(REVEALED_RGB, REVEALED_RGB, REVEALED_RGB));
                 setBorder(BorderFactory.createLoweredBevelBorder());
             }
 
-            case "cell.player" -> {
-                setBackground(new Color(96, 96, 96));
+            case STYLE_PLAYER -> {
+                setBackground(new Color(REVEALED_RGB, REVEALED_RGB, REVEALED_RGB));
                 setBorder(BorderFactory.createLineBorder(Color.BLUE, 2));
             }
 

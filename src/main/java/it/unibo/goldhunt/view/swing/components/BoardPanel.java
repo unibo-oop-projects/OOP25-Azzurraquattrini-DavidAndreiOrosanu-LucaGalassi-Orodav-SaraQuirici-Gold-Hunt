@@ -50,7 +50,7 @@ public final class BoardPanel extends JPanel {
      * @param state the current game view state
      * @throws NullPointerException if {@code state} is {@code null}
      */
-    public void render (final GameViewState state) {
+    public void render(final GameViewState state) {
         Objects.requireNonNull(state);
 
         final int size = state.boardSize();
@@ -76,7 +76,7 @@ public final class BoardPanel extends JPanel {
         removeAll();
         cellsByPos.clear();
 
-        setLayout(new GridLayout(size, size,0, 0));
+        setLayout(new GridLayout(size, size, 0, 0));
 
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
