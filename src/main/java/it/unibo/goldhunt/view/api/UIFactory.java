@@ -73,7 +73,7 @@ public interface UIFactory {
     /**
      * Creates a {@link JButton} with an icon.
      * 
-     * @param icon the image icon
+     * @param iconName the image icon
      * @return the created {@link JButton}
      */
     JButton createIconButton(String iconName);
