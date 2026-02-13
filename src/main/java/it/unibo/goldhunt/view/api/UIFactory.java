@@ -76,7 +76,7 @@ public interface UIFactory {
      * @param icon the image icon
      * @return the created {@link JButton}
      */
-    JButton createIconButton(String icon);
+    JButton createIconButton(String iconName);
 
     /**
      * Loads an icon resource.
