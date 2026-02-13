@@ -76,7 +76,6 @@ public class Pickaxe extends AbstractItem implements ClearCells {
         return KindOfItem.PICKAXE;
     }
 
-    @Override
     public PlayerOperations toInventory(final PlayerOperations playerop){
         return playerop.addItem(this.getItem(), 1);
     }

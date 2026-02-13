@@ -73,7 +73,6 @@ public class Dynamite extends AbstractItem implements ClearCells {
         return KindOfItem.DYNAMITE;
     }
 
-    @Override
     public PlayerOperations toInventory(final PlayerOperations playerop){
         return playerop.addItem(this.getItem(), 1);
     }

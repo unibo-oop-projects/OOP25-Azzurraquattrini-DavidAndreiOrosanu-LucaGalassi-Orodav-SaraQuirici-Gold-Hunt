@@ -106,7 +106,6 @@ public class Chart extends AbstractItem {
         return KindOfItem.CHART;
     }
 
-    @Override
     public PlayerOperations toInventory(final PlayerOperations playerop){
         return playerop.addItem(this.getItem(), 1);
     }

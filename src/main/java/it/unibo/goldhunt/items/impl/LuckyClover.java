@@ -64,7 +64,6 @@ public class LuckyClover extends AbstractItem {
         return KindOfItem.LUCKYCLOVER;
     }
 
-    @Override
     public PlayerOperations toInventory(final PlayerOperations playerop){
         return playerop.addItem(this.getItem(), 1);
     }
