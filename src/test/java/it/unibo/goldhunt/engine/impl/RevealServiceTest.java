@@ -127,6 +127,7 @@ class RevealServiceTest {
         final Position p = new Position(0, 0);
         final ActionResult ar = makeService().reveal(p);
         assertEquals(ActionEffect.APPLIED, ar.effect());
+        assertTrue(this.board.getCell(p).isRevealed());
         assertEquals(1, this.strategy.calls);
         assertEquals(p, this.strategy.lastPos);
     }
@@ -190,6 +191,7 @@ class RevealServiceTest {
         public void reveal(final Board b, final Position p) {
             this.calls++;
             this.lastPos = p;
+            b.getCell(p).reveal();
         }
     }
 

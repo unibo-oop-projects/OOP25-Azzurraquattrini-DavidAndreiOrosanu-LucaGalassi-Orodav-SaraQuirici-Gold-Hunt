@@ -1,6 +1,7 @@
 package it.unibo.goldhunt.engine.impl;
 
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 
@@ -13,6 +14,8 @@ import it.unibo.goldhunt.engine.api.LevelState;
 import it.unibo.goldhunt.engine.api.Position;
 import it.unibo.goldhunt.engine.api.Status;
 import it.unibo.goldhunt.items.api.CellContent;
+import it.unibo.goldhunt.items.api.ItemTypes;
+import it.unibo.goldhunt.items.api.KindOfItem;
 import it.unibo.goldhunt.player.api.PlayerOperations;
 
 /**
@@ -30,6 +33,13 @@ public class RevealService {
     private final Supplier<PlayerOperations> player;
     private final UnaryOperator<PlayerOperations> setPlayer;
     private final Supplier<Status> status;
+    private static final Set<ItemTypes> PICKUP_ITEMS = Set.of(
+        KindOfItem.PICKAXE,
+        KindOfItem.DYNAMITE,
+        KindOfItem.SHIELD,
+        KindOfItem.CHART,
+        KindOfItem.LUCKYCLOVER
+    );
 
     /**
      * Creates a reveal service with the required dependencies.
@@ -77,9 +87,15 @@ public class RevealService {
         if (cell.isFlagged() || cell.isRevealed()) {
             return ActionResultsFactory.reveal(this.status.get(), ActionEffect.BLOCKED);
         }
+        final boolean wasRevealed = cell.isRevealed();
         this.revealStrategy.reveal(this.board, p);
-        applyContentIfAny(p);
-        return ActionResultsFactory.reveal(this.status.get(), ActionEffect.APPLIED);
+        final boolean nowRevealed = this.board.getCell(p).isRevealed();
+        final boolean changed = !wasRevealed && nowRevealed;
+        if (changed) {
+            applyContentIfAny(p);
+            return ActionResultsFactory.reveal(this.status.get(), ActionEffect.APPLIED);
+        }
+        return ActionResultsFactory.reveal(this.status.get(), ActionEffect.NONE);
     }
 
     /**
@@ -106,6 +122,11 @@ public class RevealService {
         );
     }
 
+    /**
+     * cellContent may be either an ItemTypes or a trap/other content.
+     * 
+     * @param p the position of application
+     */
     private void applyContentIfAny(final Position p) {
         final Cell cell = this.board.getCell(p);
         final Optional<CellContent> optionalCell = cell.getContent();
@@ -114,10 +135,21 @@ public class RevealService {
         }
         final CellContent cellContent = optionalCell.get();
         final PlayerOperations currentPlayer = this.player.get();
-        final PlayerOperations updatedPlayer = cellContent.applyEffect(currentPlayer);
+        PlayerOperations updatedPlayer;
+        try {
+            final ItemTypes item = (ItemTypes) cellContent;
+            if (PICKUP_ITEMS.contains(item.getItem())) {
+                updatedPlayer = item.toInventory(currentPlayer);
+            } else {
+                updatedPlayer = item.applyEffect(currentPlayer);
+            }
+        } catch (final ClassCastException notAnIventoryItem) {
+            updatedPlayer = cellContent.applyEffect(currentPlayer);
+        } 
         if (updatedPlayer == null) {
             throw new IllegalStateException(
-                "applyEffect returned null for " + cellContent.getClass().getSimpleName());
+                "applyEffect returned null for " + cellContent.getClass().getSimpleName()
+            );
         }
         this.setPlayer.apply(updatedPlayer);
         cell.removeContent();

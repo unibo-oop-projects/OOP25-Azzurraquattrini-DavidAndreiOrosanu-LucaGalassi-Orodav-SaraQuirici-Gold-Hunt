@@ -121,14 +121,15 @@ public class MoveService {
 
     private ActionResult followPath(
         final List<Position> path,
-        final PlayerOperations currentPlayer
+        final PlayerOperations initialPlayer
     ) {
+        PlayerOperations currentPlayer = initialPlayer;
         for (final Position nextPosition : path) {
             final Optional<ActionResult> stepResult = applyStep(currentPlayer, nextPosition);
             if (stepResult.isPresent()) {
                 return stepResult.get();
             }
-            //currentPlayer = this.player.get();
+            currentPlayer = this.player.get();
         }
         return reached();
     }

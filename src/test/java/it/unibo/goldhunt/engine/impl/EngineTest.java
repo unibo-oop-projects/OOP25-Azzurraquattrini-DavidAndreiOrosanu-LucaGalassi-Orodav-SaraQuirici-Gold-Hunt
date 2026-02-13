@@ -513,6 +513,7 @@ class EngineTest {
         public void reveal(final Board b, final Position p) {
             this.calls++;
             this.lastPos = p;
+            b.getCell(p).reveal();
         }
     }
 

@@ -7,8 +7,10 @@ import it.unibo.goldhunt.configuration.api.Difficulty;
 import it.unibo.goldhunt.configuration.api.Level;
 import it.unibo.goldhunt.engine.api.ActionResult;
 import it.unibo.goldhunt.engine.api.EngineWithState;
+import it.unibo.goldhunt.engine.api.GameMode;
 import it.unibo.goldhunt.engine.api.Position;
 import it.unibo.goldhunt.engine.api.Status;
+import it.unibo.goldhunt.items.api.ItemFactory;
 import it.unibo.goldhunt.items.api.ItemTypes;
 import it.unibo.goldhunt.player.api.PlayerOperations;
 import it.unibo.goldhunt.shop.api.Shop;
@@ -30,9 +32,8 @@ public final class GameSession {
     private final Difficulty difficulty;
     private final Level level;
     private EngineWithState engine;
-    private final Optional<EngineWithState.EngineWithShopActions> shopEngine;
-    //private Optional<Shop> currentShop = Optional.empty();
-    //private Optional<PlayerOperations> currentPlayer = Optional.empty();
+    private Optional<EngineWithState.EngineWithShopActions> shopEngine;
+    private final ItemFactory itemFactory;
 
     /**
      * Creates a new game session with the specified configuration and engine.
@@ -46,12 +47,15 @@ public final class GameSession {
         final Difficulty difficulty,
         final Level level,
         final EngineWithState engine,
-        final Optional<EngineWithState.EngineWithShopActions> shopEngine
+        final Optional<EngineWithState.EngineWithShopActions> shopEngine,
+        final ItemFactory itemFactory
     ) {
         this.difficulty = Objects.requireNonNull(difficulty, "difficulty can't be null");
         this.level = Objects.requireNonNull(level, "level can't be null");
         this.engine = Objects.requireNonNull(engine, "engine can't be null");
         this.shopEngine = Objects.requireNonNull(shopEngine, "shopEngine can't be null");
+        this.itemFactory = Objects.requireNonNull(itemFactory, "itemFactory can't be null");
+
     }
 
     /**
@@ -153,32 +157,55 @@ public final class GameSession {
                     () -> new IllegalStateException("Shop actions not available in this session")
                 );
         final ShopActionResult shopAR = shopEn.buy(type);
-        Objects.requireNonNull(shopAR.player(), "shopAR.player() can't be null");
-        Objects.requireNonNull(shopAR.shop(), "shopAR.shop() can't be null");
-        this.engine = this.engine
-                .withPlayer(shopAR.player())
-                .withShop(Optional.of(shopAR.shop()));
+        this.engine = shopEn;
         return shopAR;
     }
 
     /**
- * Leaves the current shop.
- * Updates the session state so that {@link #shop()} becomes empty.
- *
- * @throws IllegalStateException if shop actions are not available in this session
- */
+     * Leaves the current shop.
+     * Updates the session state so that {@link #shop()} becomes empty.
+     *
+     * @throws IllegalStateException if shop actions are not available in this session
+     */
     public void leaveShop() {
         final EngineWithState.EngineWithShopActions shopEn = this.shopEngine
             .orElseThrow(
                 () -> new IllegalStateException("Shop actions not available in this session"));
         shopEn.leaveShop();
-        this.engine = this.engine.withShop(Optional.empty());
+        this.engine = shopEn;
+        this.shopEngine = Optional.of(shopEn);
     }
 
-
+    /**
+     * 
+     * @param type
+     */
     public void useItem(final ItemTypes type) {
         Objects.requireNonNull(type, "type can't be null");
-        final PlayerOperations updated = this.player().useItem(type, 1);
-        this.engine = this.engine.withPlayer(updated);
+        if (this.status().gameMode() != GameMode.LEVEL) {
+            throw new IllegalStateException("can't use items outside level");
+        }
+        final PlayerOperations currentPlayer = this.player();
+        if (!currentPlayer.inventory().hasAtLeast(type, 1)) {
+            throw new IllegalArgumentException("not enough item in inventory");
+        }
+        final var usableItem = this.itemFactory.generateItem(
+            type.getItem().name(),
+            this.level.getBoard(),
+            currentPlayer,
+            currentPlayer.inventory()
+        );
+        final PlayerOperations updatedPlayer = usableItem.applyEffect(currentPlayer);
+        if (updatedPlayer == null) {
+            throw new IllegalStateException("item applyEffect returned null: " + type.getItem());
+        }
+        final PlayerOperations updatedEfPlayer = updatedPlayer.useItem(type, 1);
+        final EngineWithState.EngineWithShopActions shopEn = this.shopEngine
+                .orElseThrow(() -> new IllegalStateException("shop actions not available"));
+        final EngineWithState updatedEngine = shopEn.withPlayer(updatedEfPlayer);
+        this.engine = updatedEngine;
+        this.shopEngine = Optional.of(
+            (EngineWithState.EngineWithShopActions) updatedEngine
+        );
     }
 }
