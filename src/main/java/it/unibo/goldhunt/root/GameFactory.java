@@ -121,6 +121,6 @@ public class GameFactory {
             this.shopCatalog,
             this.shopMaxPurchases
         );
-        return new GameSession(difficulty, level, engine, Optional.of(engine));
+        return new GameSession(difficulty, level, engine, Optional.of(engine), this.itemFactory);
     }
 }

@@ -100,7 +100,7 @@ public final class ShopImpl implements Shop {
      */
     @Override
     public List<ShopItem> items() {
-        return List.copyOf(this.itemView);
+        return this.itemView;
     }
 
     /**

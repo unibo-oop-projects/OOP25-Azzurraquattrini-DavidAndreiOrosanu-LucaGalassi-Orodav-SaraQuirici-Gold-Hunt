@@ -283,6 +283,7 @@ public class EngineImpl implements EngineWithShopActions {
             .withGameMode(GameMode.LEVEL)
             .withLevelNumber(this.status.levelNumber() + 1)
             .withLevelState(LevelState.PLAYING);
+        this.player = this.player.moveTo(this.start);
     }
 
     private List<ShopItem> shopItems(final int levelNumber) {
@@ -326,7 +327,7 @@ public class EngineImpl implements EngineWithShopActions {
     public EngineWithState withShop(Optional<Shop> shop) {
         Objects.requireNonNull(shop, "shop can't be null");
         final EngineImpl copy = new EngineImpl(
-            player, 
+            this.player, 
             this.status, 
             this.board, 
             this.rules, 
@@ -337,7 +338,7 @@ public class EngineImpl implements EngineWithShopActions {
             this.globalCatalog, 
             this.shopLimit
         );
-        copy.shop = this.shop;
+        copy.shop = shop;
         return copy;
     }
 }
