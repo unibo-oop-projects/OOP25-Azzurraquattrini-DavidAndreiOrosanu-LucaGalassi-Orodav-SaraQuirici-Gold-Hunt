@@ -64,6 +64,15 @@ public final class ItemRegistry implements ItemVisualRegistry {
         factoriMap.put("T", new ItemMap("T", "Trap, decreases the lives by 1", 
         factori.loadIcon("trap.png")));
 
+        factoriMap.put("E", new ItemMap("E", "Exit", 
+        factori.loadIcon("exit.png")));
+        
+        factoriMap.put("F", new ItemMap("F", "Flag, useful to highlight traps", 
+        factori.loadIcon("flag.png")));
+
+        factoriMap.put("Q", new ItemMap("Q", "Player", 
+        factori.loadIcon("player.png")));
+        
         this.iteMap = Collections.unmodifiableMap(factoriMap);
     }
 
