@@ -10,10 +10,25 @@ import javax.swing.Icon;
 import it.unibo.goldhunt.view.api.ItemVisualRegistry;
 import it.unibo.goldhunt.view.api.UIFactory;
 
+/**
+ * Default implementation of {@link ItemVisualRegistry}.
+ * 
+ * <p>
+ * This class provides a registry of visual representation for all 
+ * game items.
+ * The registry is immutable after construction.
+ */
 public final class ItemRegistry implements ItemVisualRegistry {
 
     private final Map<String, ItemMap> iteMap;
 
+    /**
+     * Creates a new {@code ItemRegistry} using the provided {@link UIFactory}
+     * to load item icons.
+     * 
+     * @param factori the UI factory used to load graphical resources.
+     * @throws IllegalArgumentException if {@code factori} is {@code null}.
+     */
     public ItemRegistry(final UIFactory factori) {
 
         if (factori == null) {
