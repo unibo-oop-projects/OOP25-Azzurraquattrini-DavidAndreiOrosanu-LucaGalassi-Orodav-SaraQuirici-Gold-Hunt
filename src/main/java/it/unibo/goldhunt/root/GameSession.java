@@ -153,19 +153,28 @@ public final class GameSession {
                     () -> new IllegalStateException("Shop actions not available in this session")
                 );
         final ShopActionResult shopAR = shopEn.buy(type);
+        Objects.requireNonNull(shopAR.player(), "shopAR.player() can't be null");
+        Objects.requireNonNull(shopAR.shop(), "shopAR.shop() can't be null");
         this.engine = this.engine
                 .withPlayer(shopAR.player())
                 .withShop(Optional.of(shopAR.shop()));
         return shopAR;
     }
 
+    /**
+ * Leaves the current shop.
+ * Updates the session state so that {@link #shop()} becomes empty.
+ *
+ * @throws IllegalStateException if shop actions are not available in this session
+ */
     public void leaveShop() {
         final EngineWithState.EngineWithShopActions shopEn = this.shopEngine
-                .orElseThrow(
-                    () -> new IllegalStateException("Shop actions not available in this session")
-                );
+            .orElseThrow(
+                () -> new IllegalStateException("Shop actions not available in this session"));
         shopEn.leaveShop();
+        this.engine = this.engine.withShop(Optional.empty());
     }
+
 
     public void useItem(final ItemTypes type) {
         Objects.requireNonNull(type, "type can't be null");
