@@ -7,11 +7,9 @@ import java.util.Optional;
 import java.util.stream.IntStream;
 
 import it.unibo.goldhunt.board.api.ReadOnlyBoard;
-import it.unibo.goldhunt.engine.api.ActionEffect;
 import it.unibo.goldhunt.engine.api.ActionResult;
 import it.unibo.goldhunt.engine.api.LevelState;
 import it.unibo.goldhunt.engine.api.Position;
-import it.unibo.goldhunt.items.api.ItemTypes;
 import it.unibo.goldhunt.items.api.KindOfItem;
 import it.unibo.goldhunt.player.api.PlayerOperations;
 import it.unibo.goldhunt.root.GameSession;
@@ -38,12 +36,12 @@ import it.unibo.goldhunt.view.viewstate.ShopViewState;
  * instances for the UI layer.
  * This class only reads the session state and formats UI messages.
  */
-public class ViewStateMapperimpl implements ViewStateMapper{
+public class ViewStateMapperImpl implements ViewStateMapper{
 
-    private static final String STYLE_HIDDEN = "cell.hidden.";
-    private static final String STYLE_REVEALED = "cell.revealed.";
-    private static final String STYLE_FLAGGED = "cell.flagged.";
-    private static final String STYLE_PLAYER = "cell.player.";
+    private static final String STYLE_HIDDEN = "cell.hidden";
+    private static final String STYLE_REVEALED = "cell.revealed";
+    private static final String STYLE_FLAGGED = "cell.flagged";
+    private static final String STYLE_PLAYER = "cell.player";
 
     @Override
     public GameViewState fromSession(
@@ -51,9 +49,9 @@ public class ViewStateMapperimpl implements ViewStateMapper{
         final Optional<String> message,
         final ScreenType screen
     ) {
-        Objects.requireNonNull(session, "session can't ba null");
-        Objects.requireNonNull(message, "message can't ba null");
-        Objects.requireNonNull(screen, "screen can't ba null");
+        Objects.requireNonNull(session, "session can't be null");
+        Objects.requireNonNull(message, "message can't be null");
+        Objects.requireNonNull(screen, "screen can't be null");
         final ReadOnlyBoard board = session.engine().state().board();
         final int size = board.boardSize();
         final PlayerOperations player = session.player();
@@ -69,7 +67,7 @@ public class ViewStateMapperimpl implements ViewStateMapper{
         final Optional<ShopViewState> shopView = otherShop.map(
             s -> buildShopViewState(s, player)
         );
-        final InventoryViewState inv = buildInventoryViewState(player, otherShop);
+        final InventoryViewState inv = buildInventoryViewState(player, screen);
         return new GameViewState(
             size,
             cells,
@@ -89,22 +87,22 @@ public class ViewStateMapperimpl implements ViewStateMapper{
     @Override
     public Optional<String> messageFromActionResult(final ActionResult result) {
         Objects.requireNonNull(result, "result can't be null");
-        if (result.effect() == ActionEffect.APPLIED) {
-            return Optional.empty();
-        }
-        if (result.effect() == ActionEffect.BLOCKED) {
-            return Optional.of(
-                switch (result.reason()) {
-                    case BLOCKED -> "Action blocked.";
-                    case ALREADY_THERE -> "You are already there.";
-                    case NO_AVAILABLE_PATH -> "No available path.";
-                    case ON_WARNING -> "Warning cell.";
-                    case REACHED_CELL -> "Destination cell reached.";
-                    case NONE -> "Action blocked.";
-                }
-            );
-        }
-        return Optional.of("Invalid action.");
+        return switch (result.effect()) {
+            case APPLIED -> Optional.empty();
+            case REMOVED -> Optional.of("Successfully removed");
+            case NONE -> Optional.of("Nothing to signal");
+            case INVALID -> Optional.of("Invalid action");
+            case BLOCKED -> Optional.of(
+                    switch (result.reason()) {
+                        case BLOCKED -> "Action blocked";
+                        case ALREADY_THERE -> "You are already there";
+                        case NO_AVAILABLE_PATH -> "No available path";
+                        case ON_WARNING -> "Warning cell";
+                        case REACHED_CELL -> "Destination cell reached";
+                        case NONE -> "Action blocked";
+                    }
+                );
+        };
     }
 
     @Override
@@ -118,11 +116,11 @@ public class ViewStateMapperimpl implements ViewStateMapper{
         }
         return Optional.of(
             switch (result.reason()) {
-                case NOT_ENOUGH_GOLD -> "Not enough gold.";
-                case LIMIT_REACHED -> "Purchase limit reached.";
-                case ALREADY_BOUGHT -> "Item already bought.";
-                case ITEM_NOT_SOLD -> "Item not sold in this shop.";
-                case NONE -> "Purchase not completed.";
+                case NOT_ENOUGH_GOLD -> "Not enough gold";
+                case LIMIT_REACHED -> "Purchase limit reached";
+                case ALREADY_BOUGHT -> "Item already bought";
+                case ITEM_NOT_SOLD -> "Item not sold in this shop";
+                case NONE -> "Purchase not completed";
             }
         );
     }
@@ -168,10 +166,7 @@ public class ViewStateMapperimpl implements ViewStateMapper{
             final String id = contentID.get();
             return id.isEmpty() ? "" : id.substring(0, 1).toUpperCase();
         }
-        if (adjacent > 0) {
-            return Integer.toString(adjacent);
-        }
-        return "";
+        return adjacent > 0 ? Integer.toString(adjacent) : "";
     }
 
     private String computeCellStyle(
@@ -220,31 +215,27 @@ public class ViewStateMapperimpl implements ViewStateMapper{
     }
 
     private InventoryViewState buildInventoryViewState(
-        final PlayerOperations player,
-        final Optional<Shop> shopOpt
+    final PlayerOperations player,
+    final ScreenType screen
     ) {
         Objects.requireNonNull(player, "player can't be null");
-        Objects.requireNonNull(shopOpt, "can't be null");
-        final List<InventoryItemViewState> items = 
+        Objects.requireNonNull(screen, "screen can't be null");
+        final boolean allowUse = (screen == ScreenType.PLAYING);
+        final List<InventoryItemViewState> items =
             Arrays.stream(KindOfItem.values())
-                .map(type -> toInventoryItem(type, player))
+                .map(type -> {
+                    final int quantity = player.inventory().quantity(type);
+                    final boolean usable = allowUse && quantity > 0;
+                    return new InventoryItemViewState(
+                        type,
+                        type.getName(),
+                        type.shortString(),
+                        quantity,
+                        usable,
+                        false
+                    );
+                })
                 .toList();
         return new InventoryViewState(items);
-    }
-
-    private InventoryItemViewState toInventoryItem(
-        final ItemTypes type,
-        final PlayerOperations player
-    ) {
-        final int quantity = player.inventory().quantity(type);
-        final boolean usable = quantity > 0;
-        return new InventoryItemViewState(
-            type,
-            type.getName(),
-            type.shortString(),
-            quantity,
-            usable,
-            false
-        );
     }
 }
