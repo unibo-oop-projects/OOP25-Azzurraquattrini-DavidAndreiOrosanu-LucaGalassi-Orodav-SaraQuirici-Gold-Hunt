@@ -108,6 +108,7 @@ public class TempBoard implements Board {
         throw new UnsupportedOperationException(UNNECESSARY_METHOD_FOR_TESTING);
     }
 
+    @SuppressWarnings("PMD.ForLoopCanBeForeach")
     private void cellsSnapshot() {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board.length; j++) {
