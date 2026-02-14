@@ -39,7 +39,7 @@ public class Lifes extends AbstractItem {
         if (playerop.livesCount() < MAX_QUANTITY_LIVES) {
             return playerop.addLives(PLUS_LIFE);
         }
-        return null;
+        return playerop;
     }
 
     /**
