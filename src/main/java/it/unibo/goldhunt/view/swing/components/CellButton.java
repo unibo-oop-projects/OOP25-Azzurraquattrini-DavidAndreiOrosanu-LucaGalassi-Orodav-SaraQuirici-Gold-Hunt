@@ -138,16 +138,21 @@ public final class CellButton extends JButton {
         return;
     }
 
-    final var icon = registry.getIcon(id);
-    if (icon == null) {
+    if (!registry.getAllItemsID().contains(id)) {
         setIcon(null);
         return;
     }
 
-    if (icon instanceof ImageIcon ii && ii.getImage() != null) {
-        setIcon(new ScaledIcon(ii.getImage(), ICON_PADDING));
-    } else {
-        setIcon(icon);
+    try {
+        final var icon = registry.getIcon(id); // ora è "safe" perché l'id esiste
+        if (icon instanceof ImageIcon ii && ii.getImage() != null) {
+            setIcon(new ScaledIcon(ii.getImage(), ICON_PADDING));
+        } else {
+            setIcon(icon);
+        }
+    } catch (IllegalArgumentException e) {
+        // ulteriore sicurezza: se il registry cambia comportamento o c'è mismatch
+        setIcon(null);
     }
 }
 
