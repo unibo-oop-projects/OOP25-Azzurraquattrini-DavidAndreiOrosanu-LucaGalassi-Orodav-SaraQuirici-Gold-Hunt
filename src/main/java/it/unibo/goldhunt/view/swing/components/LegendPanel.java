@@ -1,8 +1,7 @@
 package it.unibo.goldhunt.view.swing.components;
 
 import java.awt.FlowLayout;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
+import java.awt.Image;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -47,14 +46,13 @@ public final class LegendPanel extends JPanel {
         if (icon == null) {
             return null;
         }
-        final BufferedImage img = new BufferedImage(ICON_SIZE, ICON_SIZE, 
-        BufferedImage.TYPE_INT_ARGB);
 
-        final Graphics2D graphic = img.createGraphics();
-        icon.paintIcon(null, graphic, 0, 0);
-        graphic.dispose();
-
-        return new ImageIcon(img);
+        if (icon instanceof ImageIcon imageIcon) {
+            Image scale = imageIcon.getImage()
+            .getScaledInstance(ICON_SIZE, ICON_SIZE, Image.SCALE_SMOOTH);
+            return new ImageIcon(scale);
+        }
+        return icon;
     }
 
 }
