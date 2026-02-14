@@ -27,39 +27,6 @@ public final class PlayingPanel extends JPanel {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Listener for gameplay-related user actions.
-     */
-    public interface Listener {
-
-        /**
-         * Invoked when the user reveals a cell.
-         * 
-         * @param p the board position to reveal
-         */
-        void onReveal(Position p);
-
-        /**
-         * Invoked when the user toggles a flag on a cell.
-         * 
-         * @param p the board position
-         */
-        void onToggleFlag(Position p);
-
-        /**
-         * Invoked when the user uses an item from the inventory.
-         * 
-         * @param t the item type used
-         */
-        void onUseItem(ItemTypes t);
-
-        /**
-         * Invoked when the user requests to leave the current run
-         * and return to the main menu.
-         */
-        void onLeaveToMenu();
-    }
-
-    /**
      * Default no-operation listener to avoid null checks.
      */
     private static final Listener NO_OP_LISTENER = new Listener() {
@@ -146,7 +113,7 @@ public final class PlayingPanel extends JPanel {
             public void onStartGame() { }
         });
 
-        this.inventoryPanel.setListener(type -> listener.onUseItem(type));
+        this.inventoryPanel.setListener(this.listener::onUseItem);
     }
 
     /**
@@ -158,7 +125,7 @@ public final class PlayingPanel extends JPanel {
     public void setListener(final Listener listener) {
         this.listener = Objects.requireNonNull(listener);
 
-        this.inventoryPanel.setListener(type -> this.listener.onUseItem(type));
+        this.inventoryPanel.setListener(this.listener::onUseItem);
 
         this.boardPanel.setListener(new GameView.Listener() {
 
@@ -225,5 +192,38 @@ public final class PlayingPanel extends JPanel {
      */
     public HudPanel getHudPanel() {
         return this.hudPanel;
+    }
+
+    /**
+     * Listener for gameplay-related user actions.
+     */
+    public interface Listener {
+
+        /**
+         * Invoked when the user reveals a cell.
+         * 
+         * @param p the board position to reveal
+         */
+        void onReveal(Position p);
+
+        /**
+         * Invoked when the user toggles a flag on a cell.
+         * 
+         * @param p the board position
+         */
+        void onToggleFlag(Position p);
+
+        /**
+         * Invoked when the user uses an item from the inventory.
+         * 
+         * @param t the item type used
+         */
+        void onUseItem(ItemTypes t);
+
+        /**
+         * Invoked when the user requests to leave the current run
+         * and return to the main menu.
+         */
+        void onLeaveToMenu();
     }
 }

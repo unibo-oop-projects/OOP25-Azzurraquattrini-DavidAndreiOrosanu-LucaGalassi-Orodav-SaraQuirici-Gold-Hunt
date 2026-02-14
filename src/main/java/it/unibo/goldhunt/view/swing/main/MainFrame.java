@@ -19,7 +19,7 @@ import it.unibo.goldhunt.view.viewstate.ScreenType;
  * This class implements a root Swing container that hosts
  * all screens using a {@link CardLayout}. 
  */
-public class MainFrame {
+public final class MainFrame {
 
     private final JPanel root;
     private final CardLayout layout;
@@ -35,9 +35,10 @@ public class MainFrame {
      * 
      * @param factory UI factory used to create components
      * @param itemRegistry registry for item visuals
+     * @param stateLabel label used to display screens
      * @throws NullPointerException if any argument is null
      */
-    public MainFrame(UIFactory factory, ItemVisualRegistry itemRegistry, JLabel stateLabel) {
+    public MainFrame(final UIFactory factory, final ItemVisualRegistry itemRegistry, final JLabel stateLabel) {
 
         Objects.requireNonNull(factory);
         Objects.requireNonNull(itemRegistry);
@@ -80,22 +81,47 @@ public class MainFrame {
         this.layout.show(this.root, screen.name());
     }
 
+    /**
+     * Returns menu panel.
+     * 
+     * @return {@link MenuPanel}
+     */
     public MenuPanel getMenuPanel() {
         return this.menuPanel;
     }
 
+    /**
+     * Returns difficulty panel.
+     * 
+     * @return {@link DifficultyPanel}
+     */
     public DifficultyPanel getDifficultyPanel() {
         return this.difficultyPanel;
     }
 
+    /**
+     * Returns playing panel.
+     * 
+     * @return {@link PlayingPanel}
+     */
     public PlayingPanel getPlayingPanel() {
         return this.playingPanel;
     }
 
+    /**
+     * Returns end panel.
+     * 
+     * @return {@link EndPanel}
+     */
     public EndPanel getEndPanel() {
         return this.endPanel;
     }
 
+    /**
+     * Returns shop panel.
+     * 
+     * @return {@link ShopPanel}
+     */
     public ShopPanel getShopPanel() {
         return this.shopPanel;
     }
