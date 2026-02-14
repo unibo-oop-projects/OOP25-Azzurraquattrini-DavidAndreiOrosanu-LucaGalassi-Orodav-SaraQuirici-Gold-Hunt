@@ -7,7 +7,9 @@ import java.awt.event.MouseEvent;
 import java.util.Objects;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
 import it.unibo.goldhunt.engine.api.Position;
@@ -35,6 +37,8 @@ public final class CellButton extends JButton {
     private static final String STYLE_REVEALED = "cell.revealed";
     private static final String STYLE_PLAYER = "cell.player";
 
+    private static final int ICON_PADDING = 2;
+
     private static final long serialVersionUID = 1L;
 
     private final transient Position position;
@@ -58,6 +62,11 @@ public final class CellButton extends JButton {
         setFocusable(false);
         setOpaque(true);
         setMargin(new Insets(0, 0, 0, 0));
+
+        setHorizontalAlignment(SwingConstants.CENTER);
+        setVerticalAlignment(SwingConstants.CENTER);
+        setHorizontalTextPosition(SwingConstants.CENTER);
+        setVerticalTextPosition(SwingConstants.CENTER);
 
         addMouseListener(new MouseAdapter() { 
             @Override
@@ -121,34 +130,52 @@ public final class CellButton extends JButton {
 
         applyStyle(state.styleKey());
         repaint();
-
     }
 
+    private void setScaledIconFromRegistry(final String id) {
+    if (id == null) {
+        setIcon(null);
+        return;
+    }
+
+    final var icon = registry.getIcon(id);
+    if (icon == null) {
+        setIcon(null);
+        return;
+    }
+
+    if (icon instanceof ImageIcon ii && ii.getImage() != null) {
+        setIcon(new ScaledIcon(ii.getImage(), ICON_PADDING));
+    } else {
+        setIcon(icon);
+    }
+}
+
     private void renderPlayer() {
-        if (registry.getAllItemsID().contains(PLAYER)) {
-            setIcon(registry.getIcon(PLAYER));
-        }
+        setScaledIconFromRegistry(PLAYER);
     }
 
     private void renderHidden(final CellViewState state) {
         final String symbol = state.symbol();
 
-        if (EXIT.equals(symbol) && registry.getAllItemsID().contains(EXIT)) {
-            setIcon(registry.getIcon(EXIT));
+        if (EXIT.equals(symbol)) {
+            setScaledIconFromRegistry(EXIT);
             return;
         }
 
-        if (state.flagged() && registry.getAllItemsID().contains(FLAG)) {
-            setIcon(registry.getIcon(FLAG));
+        if (state.flagged()) {
+            setScaledIconFromRegistry(FLAG);
         }
     }
 
     private void renderRevealed(final CellViewState state) {
         final String symbol = state.symbol();
 
-        if (symbol != null && registry.getAllItemsID().contains(symbol)) {
-            setIcon(registry.getIcon(symbol));
-            return;
+        if (symbol != null) {
+            setScaledIconFromRegistry(symbol);
+            if (getIcon() != null) {
+                return;
+            }
         }
 
         if (state.adjacentTraps() > 0) {
