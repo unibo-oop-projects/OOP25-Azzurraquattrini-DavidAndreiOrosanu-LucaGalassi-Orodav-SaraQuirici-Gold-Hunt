@@ -2,6 +2,8 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 plugins {
     java
+    application
+    id("com.gradleup.shadow") version "9.3.1"
     id("org.danilopianini.gradle-java-qa") version "1.164.0"
 }
 
@@ -31,5 +33,9 @@ tasks.withType<Test>().configureEach {
 
 tasks.withType<Javadoc>().configureEach {
     isFailOnError = false
+}
+
+application {
+    mainClass.set("it.unibo.goldhunt.Launcher")
 }
 
