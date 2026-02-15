@@ -20,6 +20,7 @@ import it.unibo.goldhunt.engine.api.MovementRules;
 import it.unibo.goldhunt.engine.api.Position;
 import it.unibo.goldhunt.engine.api.Status;
 import it.unibo.goldhunt.engine.api.StopReason;
+import it.unibo.goldhunt.items.api.CellContent;
 import it.unibo.goldhunt.player.api.Inventory;
 import it.unibo.goldhunt.player.api.Player;
 import it.unibo.goldhunt.player.api.PlayerOperations;
@@ -35,8 +36,6 @@ class MoveServiceTest {
     private TestPlayer testPlayer;
     private TestBoard board;
     private TestMovRules rules;
-
-    // helpers
 
     private static PlayerOperations makePlayer(final Position p) {
         final Inventory inventory = new InventoryImpl();
@@ -184,9 +183,17 @@ class MoveServiceTest {
     private static final class TestBoard implements Board {
 
         private final Set<Position> validPos;
+        private final java.util.Map<Position, Cell> cells = new java.util.HashMap<>();
 
         TestBoard(final Set<Position> validPos) {
             this.validPos = validPos;
+            for (final Position p : validPos) {
+                cells.put(p, new TestCell(false));
+            }
+        }
+
+        void setFlagged(final Position p, final boolean flagged) {
+            cells.put(p, new TestCell(flagged));
         }
 
         @Override
@@ -195,13 +202,17 @@ class MoveServiceTest {
         }
 
         @Override
-        public List<Cell> getBoardCells() {
-            throw new UnsupportedOperationException("Unimplemented method 'getBoardCells'");
+        public Cell getCell(final Position p) {
+            final Cell c = cells.get(p);
+            if (c == null) {
+                throw new IllegalArgumentException("Invalid position: " + p);
+            }
+            return c;
         }
 
         @Override
-        public Cell getCell(final Position p) {
-            throw new UnsupportedOperationException("Unimplemented method 'getCell'");
+        public List<Cell> getBoardCells() {
+            throw new UnsupportedOperationException("Unimplemented method 'getBoardCells'");
         }
 
         @Override
@@ -269,5 +280,51 @@ class MoveServiceTest {
         public Optional<Position> nextUnitaryStep(final Position from, final Position to, final Player player) {
             return Optional.empty();
         }
+    }
+
+    private static final class TestCell implements Cell {
+
+        private final boolean flagged;
+
+        TestCell(final boolean flagged) {
+            this.flagged = flagged;
+        }
+
+        @Override
+        public boolean isFlagged() {
+            return flagged;
+        }
+
+        @Override
+        public void reveal() { }
+
+        @Override
+        public boolean isRevealed() {
+            return false;
+        }
+
+        @Override
+        public void toggleFlag() { }
+
+        @Override
+        public int getAdjacentTraps() {
+            return 0;
+        }
+
+        @Override
+        public void setAdjacentTraps(final int n) { }
+
+        @Override
+        public boolean hasContent() {
+            return false;
+        }
+
+        @Override public Optional<CellContent> getContent() {
+            return Optional.empty();
+        }
+
+        @Override public void setContent(final CellContent content) { }
+
+        @Override public void removeContent() { }
     }
 }
