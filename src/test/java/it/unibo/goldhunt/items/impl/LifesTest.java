@@ -2,7 +2,6 @@ package it.unibo.goldhunt.items.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.Objects;
 
@@ -55,7 +54,7 @@ class LifesTest {
         Objects.requireNonNull(playerop);
         lifes.bind(new ItemContext(null, playerop, null));
         final PlayerOperations res = lifes.applyEffect(playerop);
-        assertNull(res);
+        assertNotNull(res);
         assertEquals(AbstractItem.MAX_QUANTITY_LIVES, playerop.livesCount());
     }
 
